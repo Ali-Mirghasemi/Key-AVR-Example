@@ -155,7 +155,7 @@ Key_HandleStatus Key2_onChange(Key* key, Key_State state) {
     switch (state) {
         case Key_State_Pressed:
             LED1 = 1;
-            return Key_Handled;
+            return Key_NotHandled;
         case Key_State_Released:
             LED1 = 0;
             return Key_Handled;

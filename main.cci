@@ -1,4 +1,4 @@
-VERSION:3 SOURCE_TIMESTAMP:52DC39DD
+VERSION:3 SOURCE_TIMESTAMP:52DC3B5B
 NODE:I LEVEL:0 LINE:8 "C:\cvavr\inc\io.h"
 NODE:I LEVEL:0 LINE:9 ".\Libs\Key\Src\Key.h"
 NODE:I LEVEL:0 LINE:10 ".\Libs\Key\Port\KeyPort.h"
@@ -38,9 +38,6 @@ LEVEL:1 LINE:205 ICON:S "ActiveState"
 LEVEL:1 LINE:206 ICON:S "Reserved"
 NODE:F LEVEL:0 LINE:48 "main(void)"
 NODE:F LEVEL:0 LINE:113 "timer1_compa_isr(void)"
-NODE:F LEVEL:0 LINE:120 "Key1_onPressed(struct Key * key,enum Key_State state)"
-NODE:F LEVEL:0 LINE:125 "Key2_onPressed(struct Key * key,enum Key_State state)"
-NODE:F LEVEL:0 LINE:129 "Key2_onReleased(struct Key * key,enum Key_State state)"
-NODE:F LEVEL:0 LINE:134 "Key3_onPressed(struct Key * key,enum Key_State state)"
-NODE:F LEVEL:0 LINE:138 "Key3_onReleased(struct Key * key,enum Key_State state)"
-NODE:F LEVEL:0 LINE:142 "Key3_onHold(struct Key * key,enum Key_State state)"
+NODE:F LEVEL:0 LINE:147 "Key1_onChange(struct Key * key,enum Key_State state)"
+NODE:F LEVEL:0 LINE:154 "Key2_onChange(struct Key * key,enum Key_State state)"
+NODE:F LEVEL:0 LINE:166 "Key3_onChange(struct Key * key,enum Key_State state)"

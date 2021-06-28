@@ -1,0 +1,88 @@
+[CompilerDebug]
+RebuildAll=0
+LinkageInformationPresent=1
+COFFileTimeStamp=1390164829
+Build=30
+[Compiler]
+Build=30
+[BuildInfoCompiler]
+L1=Build configuration: Debug
+L2=Chip: ATmega16A
+L3=Clock frequency: 8.000000 MHz
+L4=Program type: Application
+L5=Memory model: Small
+L6=Optimize for: Speed
+L7=(s)printf features: int, width
+L8=(s)scanf features: int, width
+L9=Promote 'char' to 'int': Yes
+L10='char' is unsigned: Yes
+L11=global 'const' stored in FLASH: No
+L12=8 bit enums: Yes
+L13=Enhanced function parameters passing: Yes
+L14=Automatic register allocation: Yes
+L15=Smart register allocation: Yes
+L16=
+L17=Build: 30
+L18=4347 line(s) compiled
+L19=No errors
+L20=6 warning(s)
+L21=
+L22=Bit variables size: 0 byte(s)
+L23=
+L24=Data Stack area: 0x60 to 0x15F
+L25=Data Stack size: 256 byte(s)
+L26=Estimated Data Stack usage: 27 byte(s)
+L27=
+L28=RAM Global variables area: 0x160 to 0x183
+L29=RAM Global variables size: 36 byte(s)
+L30=
+L31=Hardware Stack area: 0x184 to 0x45F
+L32=Hardware Stack size: 732 byte(s)
+L33=
+L34=Heap size: 0 byte(s)
+L35=
+L36=EEPROM usage: 0 byte(s), 0.0% of EEPROM
+L37=Program size: 602 words (1204 bytes), 7.3% of FLASH
+Lines=37
+[BuildInfoAssembler]
+L1=AVRASM: AVR macro assembler 2.1.30 (build 592 Nov  7 2008 12:38:17)
+L2=Copyright (C) 1995-2008 ATMEL Corporation
+L3=
+L4=D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(2242): No EEPROM data, deleting D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\Exe\key.eep
+L5=
+L6=ATmega16A memory use summary [bytes]:
+L7=Segment   Begin    End      Code   Data   Used    Size   Use%
+L8=---------------------------------------------------------------
+L9=[.cseg] 0x000000 0x0004b4   1158     46   1204   16384   7.3%
+L10=[.dseg] 0x000060 0x000184      0     36     36    1024   3.5%
+L11=[.eseg] 0x000000 0x000000      0      0      0     512   0.0%
+L12=
+Lines=12
+[HeadersList]
+Files=3
+F1=D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\main.c
+F2=D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Libs\Key\Src\Key.c
+F3=D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Libs\Key\Port\KeyPort.c
+[Header1]
+Files=7
+F1=C:\cvavr\inc\io.h
+F2=C:\cvavr\inc\mega16a.h
+F3=C:\cvavr\inc\mega16_bits.h
+F4=Libs\Key\Src\Key.h
+F5=C:\cvavr\inc\stdint.h
+F6=Libs\Key\Port\KeyIO.h
+F7=Libs\Key\Port\KeyPort.h
+[Header2]
+Files=3
+F1=Libs\Key\Src\Key.h
+F2=C:\cvavr\inc\stdint.h
+F3=Libs\Key\Port\KeyIO.h
+[Header3]
+Files=7
+F1=Libs\Key\Port\KeyPort.h
+F2=Libs\Key\Src\Key.h
+F3=C:\cvavr\inc\stdint.h
+F4=Libs\Key\Port\KeyIO.h
+F5=C:\cvavr\inc\io.h
+F6=C:\cvavr\inc\mega16a.h
+F7=C:\cvavr\inc\mega16_bits.h

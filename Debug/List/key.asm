@@ -1371,59 +1371,38 @@ _main:
 	CALL _Key_add
 ; 0000 0058 #if KEY_MULTI_CALLBACK
 ; 0000 0059     Key_onPressed(&key1, Key1_onPressed);
+; 0000 005A 
+; 0000 005B     Key_onPressed(&key2, Key2_onPressed);
+; 0000 005C     Key_onReleased(&key2, Key2_onReleased);
+; 0000 005D 
+; 0000 005E     Key_onPressed(&key3, Key3_onPressed);
+; 0000 005F     Key_onReleased(&key3, Key3_onReleased);
+; 0000 0060     Key_onHold(&key3, Key3_onHold);
+; 0000 0061 #else
+; 0000 0062     Key_onChange(&key1, Key1_onChange);
 	LDI  R30,LOW(_key1_G000)
 	LDI  R31,HIGH(_key1_G000)
 	ST   -Y,R31
 	ST   -Y,R30
-	LDI  R26,LOW(_Key1_onPressed)
-	LDI  R27,HIGH(_Key1_onPressed)
-	CALL _Key_onPressed
-; 0000 005A 
-; 0000 005B     Key_onPressed(&key2, Key2_onPressed);
-	LDI  R30,LOW(_key2_G000)
-	LDI  R31,HIGH(_key2_G000)
-	ST   -Y,R31
-	ST   -Y,R30
-	LDI  R26,LOW(_Key2_onPressed)
-	LDI  R27,HIGH(_Key2_onPressed)
-	CALL _Key_onPressed
-; 0000 005C     Key_onReleased(&key2, Key2_onReleased);
-	LDI  R30,LOW(_key2_G000)
-	LDI  R31,HIGH(_key2_G000)
-	ST   -Y,R31
-	ST   -Y,R30
-	LDI  R26,LOW(_Key2_onReleased)
-	LDI  R27,HIGH(_Key2_onReleased)
-	CALL _Key_onReleased
-; 0000 005D 
-; 0000 005E     Key_onPressed(&key3, Key3_onPressed);
-	LDI  R30,LOW(_key3_G000)
-	LDI  R31,HIGH(_key3_G000)
-	ST   -Y,R31
-	ST   -Y,R30
-	LDI  R26,LOW(_Key3_onPressed)
-	LDI  R27,HIGH(_Key3_onPressed)
-	CALL _Key_onPressed
-; 0000 005F     Key_onReleased(&key3, Key3_onReleased);
-	LDI  R30,LOW(_key3_G000)
-	LDI  R31,HIGH(_key3_G000)
-	ST   -Y,R31
-	ST   -Y,R30
-	LDI  R26,LOW(_Key3_onReleased)
-	LDI  R27,HIGH(_Key3_onReleased)
-	CALL _Key_onReleased
-; 0000 0060     Key_onHold(&key3, Key3_onHold);
-	LDI  R30,LOW(_key3_G000)
-	LDI  R31,HIGH(_key3_G000)
-	ST   -Y,R31
-	ST   -Y,R30
-	LDI  R26,LOW(_Key3_onHold)
-	LDI  R27,HIGH(_Key3_onHold)
-	CALL _Key_onHold
-; 0000 0061 #else
-; 0000 0062     Key_onChange(&key1, Key1_onChange);
+	LDI  R26,LOW(_Key1_onChange)
+	LDI  R27,HIGH(_Key1_onChange)
+	CALL _Key_onChange
 ; 0000 0063     Key_onChange(&key2, Key2_onChange);
+	LDI  R30,LOW(_key2_G000)
+	LDI  R31,HIGH(_key2_G000)
+	ST   -Y,R31
+	ST   -Y,R30
+	LDI  R26,LOW(_Key2_onChange)
+	LDI  R27,HIGH(_Key2_onChange)
+	CALL _Key_onChange
 ; 0000 0064     Key_onChange(&key3, Key3_onChange);
+	LDI  R30,LOW(_key3_G000)
+	LDI  R31,HIGH(_key3_G000)
+	ST   -Y,R31
+	ST   -Y,R30
+	LDI  R26,LOW(_Key3_onChange)
+	LDI  R27,HIGH(_Key3_onChange)
+	CALL _Key_onChange
 ; 0000 0065 #endif
 ; 0000 0066 
 ; 0000 0067     // Global enable interrupts
@@ -1482,119 +1461,164 @@ _timer1_compa_isr:
 ;// Callbacks
 ;#if KEY_MULTI_CALLBACK
 ;Key_HandleStatus Key1_onPressed(Key* key, Key_State state) {
-; 0000 0078 Key_HandleStatus Key1_onPressed(Key* key, Key_State state) {
-_Key1_onPressed:
-; .FSTART _Key1_onPressed
-; 0000 0079     LED0 = !LED0;
-	ST   -Y,R26
-;	*key -> Y+1
-;	state -> Y+0
-	SBIS 0x1B,0
-	RJMP _0x11
-	CBI  0x1B,0
-	RJMP _0x12
-_0x11:
-	SBI  0x1B,0
-_0x12:
-; 0000 007A     return Key_Handled;
-	LDI  R30,LOW(1)
-	ADIW R28,3
-	RET
-; 0000 007B }
-; .FEND
+;    LED0 = !LED0;
+;    return Key_Handled;
+;}
 ;
 ;Key_HandleStatus Key2_onPressed(Key* key, Key_State state) {
-; 0000 007D Key_HandleStatus Key2_onPressed(Key* key, Key_State state) {
-_Key2_onPressed:
-; .FSTART _Key2_onPressed
-; 0000 007E     LED1 = 1;
-	ST   -Y,R26
-;	*key -> Y+1
-;	state -> Y+0
-	SBI  0x1B,1
-; 0000 007F     return Key_NotHandled;
-	LDI  R30,LOW(0)
-	ADIW R28,3
-	RET
-; 0000 0080 }
-; .FEND
+;    LED1 = 1;
+;    return Key_NotHandled;
+;}
 ;Key_HandleStatus Key2_onReleased(Key* key, Key_State state) {
-; 0000 0081 Key_HandleStatus Key2_onReleased(Key* key, Key_State state) {
-_Key2_onReleased:
-; .FSTART _Key2_onReleased
-; 0000 0082     LED1 = 0;
+;    LED1 = 0;
+;    return Key_Handled;
+;}
+;
+;Key_HandleStatus Key3_onPressed(Key* key, Key_State state) {
+;    LED2 = 1;
+;    return Key_NotHandled;
+;}
+;Key_HandleStatus Key3_onReleased(Key* key, Key_State state) {
+;    LED2 = 0;
+;    return Key_NotHandled;
+;}
+;Key_HandleStatus Key3_onHold(Key* key, Key_State state) {
+;    LED2 = !LED2;
+;    return Key_NotHandled;
+;}
+;#else
+;Key_HandleStatus Key1_onChange(Key* key, Key_State state) {
+; 0000 0093 Key_HandleStatus Key1_onChange(Key* key, Key_State state) {
+_Key1_onChange:
+; .FSTART _Key1_onChange
+; 0000 0094     if (Key_State_Pressed == state) {
 	ST   -Y,R26
 ;	*key -> Y+1
 ;	state -> Y+0
-	CBI  0x1B,1
-; 0000 0083     return Key_Handled;
+	LD   R30,Y
+	CPI  R30,LOW(0x2)
+	BREQ PC+3
+	JMP _0x11
+; 0000 0095         LED0 = !LED0;
+	SBIS 0x1B,0
+	RJMP _0x12
+	CBI  0x1B,0
+	RJMP _0x13
+_0x12:
+	SBI  0x1B,0
+_0x13:
+; 0000 0096         return Key_Handled;
 	LDI  R30,LOW(1)
 	ADIW R28,3
 	RET
-; 0000 0084 }
-; .FEND
-;
-;Key_HandleStatus Key3_onPressed(Key* key, Key_State state) {
-; 0000 0086 Key_HandleStatus Key3_onPressed(Key* key, Key_State state) {
-_Key3_onPressed:
-; .FSTART _Key3_onPressed
-; 0000 0087     LED2 = 1;
-	ST   -Y,R26
-;	*key -> Y+1
-;	state -> Y+0
-	SBI  0x1B,2
-; 0000 0088     return Key_NotHandled;
+; 0000 0097     }
+; 0000 0098     return Key_NotHandled;
+_0x11:
 	LDI  R30,LOW(0)
 	ADIW R28,3
 	RET
-; 0000 0089 }
+; 0000 0099 }
 ; .FEND
-;Key_HandleStatus Key3_onReleased(Key* key, Key_State state) {
-; 0000 008A Key_HandleStatus Key3_onReleased(Key* key, Key_State state) {
-_Key3_onReleased:
-; .FSTART _Key3_onReleased
-; 0000 008B     LED2 = 0;
-	ST   -Y,R26
-;	*key -> Y+1
-;	state -> Y+0
-	CBI  0x1B,2
-; 0000 008C     return Key_NotHandled;
-	LDI  R30,LOW(0)
-	ADIW R28,3
-	RET
-; 0000 008D }
-; .FEND
-;Key_HandleStatus Key3_onHold(Key* key, Key_State state) {
-; 0000 008E Key_HandleStatus Key3_onHold(Key* key, Key_State state) {
-_Key3_onHold:
-; .FSTART _Key3_onHold
-; 0000 008F     LED2 = !LED2;
-	ST   -Y,R26
-;	*key -> Y+1
-;	state -> Y+0
-	SBIS 0x1B,2
-	RJMP _0x1B
-	CBI  0x1B,2
-	RJMP _0x1C
-_0x1B:
-	SBI  0x1B,2
-_0x1C:
-; 0000 0090     return Key_NotHandled;
-	LDI  R30,LOW(0)
-	ADIW R28,3
-	RET
-; 0000 0091 }
-; .FEND
-;#else
-;Key_HandleStatus Key1_onChange(Key* key, Key_State state) {
-;
-;}
 ;Key_HandleStatus Key2_onChange(Key* key, Key_State state) {
-;
-;}
+; 0000 009A Key_HandleStatus Key2_onChange(Key* key, Key_State state) {
+_Key2_onChange:
+; .FSTART _Key2_onChange
+; 0000 009B     switch (state) {
+	ST   -Y,R26
+;	*key -> Y+1
+;	state -> Y+0
+	LD   R30,Y
+	LDI  R31,0
+; 0000 009C         case Key_State_Pressed:
+	CPI  R30,LOW(0x2)
+	LDI  R26,HIGH(0x2)
+	CPC  R31,R26
+	BREQ PC+3
+	JMP _0x17
+; 0000 009D             LED1 = 1;
+	SBI  0x1B,1
+; 0000 009E             return Key_NotHandled;
+	LDI  R30,LOW(0)
+	ADIW R28,3
+	RET
+; 0000 009F         case Key_State_Released:
+_0x17:
+	CPI  R30,LOW(0x1)
+	LDI  R26,HIGH(0x1)
+	CPC  R31,R26
+	BREQ PC+3
+	JMP _0x1D
+; 0000 00A0             LED1 = 0;
+	CBI  0x1B,1
+; 0000 00A1             return Key_Handled;
+	LDI  R30,LOW(1)
+	ADIW R28,3
+	RET
+; 0000 00A2         default:
+_0x1D:
+; 0000 00A3             return Key_NotHandled;
+	LDI  R30,LOW(0)
+	ADIW R28,3
+	RET
+; 0000 00A4     }
+_0x16:
+; 0000 00A5 }
+	ADIW R28,3
+	RET
+; .FEND
 ;Key_HandleStatus Key3_onChange(Key* key, Key_State state) {
-;
-;}
+; 0000 00A6 Key_HandleStatus Key3_onChange(Key* key, Key_State state) {
+_Key3_onChange:
+; .FSTART _Key3_onChange
+; 0000 00A7     switch (state) {
+	ST   -Y,R26
+;	*key -> Y+1
+;	state -> Y+0
+	LD   R30,Y
+	LDI  R31,0
+; 0000 00A8         case Key_State_Pressed:
+	CPI  R30,LOW(0x2)
+	LDI  R26,HIGH(0x2)
+	CPC  R31,R26
+	BREQ PC+3
+	JMP _0x21
+; 0000 00A9             LED2 = 1;
+	SBI  0x1B,2
+; 0000 00AA             break;
+	RJMP _0x20
+; 0000 00AB         case Key_State_Released:
+_0x21:
+	CPI  R30,LOW(0x1)
+	LDI  R26,HIGH(0x1)
+	CPC  R31,R26
+	BREQ PC+3
+	JMP _0x24
+; 0000 00AC             LED2 = 0;
+	CBI  0x1B,2
+; 0000 00AD             break;
+	RJMP _0x20
+; 0000 00AE         case Key_State_Hold:
+_0x24:
+	SBIW R30,0
+	BREQ PC+3
+	JMP _0x20
+; 0000 00AF             LED2 = !LED2;
+	SBIS 0x1B,2
+	RJMP _0x28
+	CBI  0x1B,2
+	RJMP _0x29
+_0x28:
+	SBI  0x1B,2
+_0x29:
+; 0000 00B0             break;
+; 0000 00B1     }
+_0x20:
+; 0000 00B2     return Key_NotHandled;
+	LDI  R30,LOW(0)
+	ADIW R28,3
+	RET
+; 0000 00B3 }
+; .FEND
 ;#endif
 ;
 ;#include "Key.h"
@@ -1672,7 +1696,7 @@ _0x20003:
 ; 0001 002B         state = Key_ptr(pKey)->State;
 	MOVW R26,R18
 	CALL __GETW1P
-	LDD  R30,Z+8
+	LDD  R30,Z+4
 	ANDI R30,LOW(0x3)
 	MOV  R17,R30
 ; 0001 002C     #if KEY_ACTIVE_STATE
@@ -1698,7 +1722,7 @@ _0x20003:
 ; 0001 0031         Key_ptr(pKey)->State = state;
 	MOVW R26,R18
 	CALL __GETW1P
-	ADIW R30,8
+	ADIW R30,4
 	MOVW R26,R30
 	MOV  R30,R17
 	ANDI R30,LOW(0x3)
@@ -1715,7 +1739,7 @@ _0x20003:
 ; 0001 0037             ) {
 	MOVW R26,R18
 	CALL __GETW1P
-	LDD  R30,Z+8
+	LDD  R30,Z+4
 	ANDI R30,LOW(0x4)
 	BREQ PC+3
 	JMP _0x20007
@@ -1728,35 +1752,27 @@ _0x20007:
 _0x20008:
 ; 0001 0038         #if KEY_MULTI_CALLBACK
 ; 0001 0039             if (Key_ptr(pKey)->Callbacks.callbacks[state]) {
+; 0001 003A                 Key_ptr(pKey)->NotActive = Key_ptr(pKey)->Callbacks.callbacks[state](Key_ptr(pKey), state);
+; 0001 003B             }
+; 0001 003C         #else
+; 0001 003D             if (Key_ptr(pKey)->Callbacks.onChange) {
 	MOVW R26,R18
 	CALL __GETW1P
 	ADIW R30,2
 	MOVW R26,R30
-	MOV  R30,R17
-	LDI  R31,0
-	LSL  R30
-	ROL  R31
-	ADD  R26,R30
-	ADC  R27,R31
 	CALL __GETW1P
 	SBIW R30,0
 	BRNE PC+3
 	JMP _0x20009
-; 0001 003A                 Key_ptr(pKey)->NotActive = Key_ptr(pKey)->Callbacks.callbacks[state](Key_ptr(pKey), state);
+; 0001 003E                 Key_ptr(pKey)->NotActive = Key_ptr(pKey)->Callbacks.onChange(Key_ptr(pKey), state);
 	MOVW R26,R18
 	CALL __GETW1P
-	ADIW R30,8
+	ADIW R30,4
 	PUSH R31
 	PUSH R30
 	CALL __GETW1P
 	ADIW R30,2
 	MOVW R26,R30
-	MOV  R30,R17
-	LDI  R31,0
-	LSL  R30
-	ROL  R31
-	ADD  R26,R30
-	ADC  R27,R31
 	CALL __GETW1P
 	PUSH R31
 	PUSH R30
@@ -1778,10 +1794,6 @@ _0x20008:
 	ANDI R30,0xFB
 	OR   R30,R0
 	ST   X,R30
-; 0001 003B             }
-; 0001 003C         #else
-; 0001 003D             if (Key_ptr(pKey)->Callbacks.onChange) {
-; 0001 003E                 Key_ptr(pKey)->NotActive = Key_ptr(pKey)->Callbacks.onChange(Key_ptr(pKey), state);
 ; 0001 003F             }
 ; 0001 0040         #endif /* KEY_MULTI_CALLBACK_ENABLE */
 ; 0001 0041         }
@@ -1794,7 +1806,7 @@ _0x20006:
 	JMP _0x2000C
 	MOVW R26,R18
 	CALL __GETW1P
-	LDD  R30,Z+8
+	LDD  R30,Z+4
 	ANDI R30,LOW(0x4)
 	BRNE PC+3
 	JMP _0x2000C
@@ -1805,7 +1817,7 @@ _0x2000D:
 ; 0001 0043             Key_ptr(pKey)->NotActive = Key_NotHandled;
 	MOVW R26,R18
 	CALL __GETW1P
-	ADIW R30,8
+	ADIW R30,4
 	MOVW R26,R30
 	LD   R30,X
 	ANDI R30,0xFB
@@ -1885,14 +1897,14 @@ _Key_add:
 ;	*config -> Y+0
 	LDD  R26,Y+2
 	LDD  R27,Y+2+1
-	ADIW R26,8
+	ADIW R26,4
 	LD   R30,X
 	ORI  R30,LOW(0x3)
 	ST   X,R30
 ; 0001 006B     key->NotActive = Key_NotHandled;
 	LDD  R26,Y+2
 	LDD  R27,Y+2+1
-	ADIW R26,8
+	ADIW R26,4
 	LD   R30,X
 	ANDI R30,0xFB
 	ST   X,R30
@@ -2027,53 +2039,14 @@ _0x20010:
 ;
 ;#if KEY_MULTI_CALLBACK
 ;void Key_onHold(Key* key, Key_Callback cb) {
-; 0001 00AD void Key_onHold(Key* key, Key_Callback cb) {
-_Key_onHold:
-; .FSTART _Key_onHold
-; 0001 00AE     key->Callbacks.onHold = cb;
-	ST   -Y,R27
-	ST   -Y,R26
-;	*key -> Y+2
-;	*cb -> Y+0
-	LD   R30,Y
-	LDD  R31,Y+1
-	__PUTW1SNS 2,2
-; 0001 00AF }
-	ADIW R28,4
-	RET
-; .FEND
+;    key->Callbacks.onHold = cb;
+;}
 ;void Key_onReleased(Key* key, Key_Callback cb) {
-; 0001 00B0 void Key_onReleased(Key* key, Key_Callback cb) {
-_Key_onReleased:
-; .FSTART _Key_onReleased
-; 0001 00B1     key->Callbacks.onReleased = cb;
-	ST   -Y,R27
-	ST   -Y,R26
-;	*key -> Y+2
-;	*cb -> Y+0
-	LD   R30,Y
-	LDD  R31,Y+1
-	__PUTW1SNS 2,4
-; 0001 00B2 }
-	ADIW R28,4
-	RET
-; .FEND
+;    key->Callbacks.onReleased = cb;
+;}
 ;void Key_onPressed(Key* key, Key_Callback cb) {
-; 0001 00B3 void Key_onPressed(Key* key, Key_Callback cb) {
-_Key_onPressed:
-; .FSTART _Key_onPressed
-; 0001 00B4     key->Callbacks.onPressed = cb;
-	ST   -Y,R27
-	ST   -Y,R26
-;	*key -> Y+2
-;	*cb -> Y+0
-	LD   R30,Y
-	LDD  R31,Y+1
-	__PUTW1SNS 2,6
-; 0001 00B5 }
-	ADIW R28,4
-	RET
-; .FEND
+;    key->Callbacks.onPressed = cb;
+;}
 ;#if KEY_NONE_CALLBACK
 ;void Key_onNone(Key* key, Key_Callback cb) {
 ;    key->Callbacks.onNone = cb;
@@ -2081,8 +2054,21 @@ _Key_onPressed:
 ;#endif // KEY_NONE_CALLBACK
 ;#else
 ;void Key_onChange(Key* key, Key_Callback cb) {
-;    key->Callbacks.onChange = cb;
-;}
+; 0001 00BC void Key_onChange(Key* key, Key_Callback cb) {
+_Key_onChange:
+; .FSTART _Key_onChange
+; 0001 00BD     key->Callbacks.onChange = cb;
+	ST   -Y,R27
+	ST   -Y,R26
+;	*key -> Y+2
+;	*cb -> Y+0
+	LD   R30,Y
+	LDD  R31,Y+1
+	__PUTW1SNS 2,2
+; 0001 00BE }
+	ADIW R28,4
+	RET
+; .FEND
 ;#endif // KEY_MULTI_CALLBACK
 ;
 ;#if KEY_ACTIVE_STATE
@@ -2206,11 +2192,11 @@ _keyConfig2:
 _keyConfig3:
 	.BYTE 0x3
 _key1_G000:
-	.BYTE 0x9
+	.BYTE 0x5
 _key2_G000:
-	.BYTE 0x9
+	.BYTE 0x5
 _key3_G000:
-	.BYTE 0x9
+	.BYTE 0x5
 _keyDriver_G001:
 	.BYTE 0x2
 _keys_G001:

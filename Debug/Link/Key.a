@@ -130,6 +130,10 @@
 ;PCODE: $00000042 VOL: 0
 ; 0001 0038         #if KEY_MULTI_CALLBACK
 ; 0001 0039             if (Key_ptr(pKey)->Callbacks.callbacks[state]) {
+; 0001 003A                 Key_ptr(pKey)->NotActive = Key_ptr(pKey)->Callbacks.callbacks[state](Key_ptr(pKey), state);
+; 0001 003B             }
+; 0001 003C         #else
+; 0001 003D             if (Key_ptr(pKey)->Callbacks.onChange) {
 ;PCODE: $00000043 VOL: 0
 ;PCODE: $00000044 VOL: 0
 ;PCODE: $00000045 VOL: 0
@@ -137,11 +141,11 @@
 ;PCODE: $00000047 VOL: 0
 ;PCODE: $00000048 VOL: 0
 ;PCODE: $00000049 VOL: 0
+; 0001 003E                 Key_ptr(pKey)->NotActive = Key_ptr(pKey)->Callbacks.onChange(Key_ptr(pKey), state);
 ;PCODE: $0000004A VOL: 0
 ;PCODE: $0000004B VOL: 0
 ;PCODE: $0000004C VOL: 0
 ;PCODE: $0000004D VOL: 0
-; 0001 003A                 Key_ptr(pKey)->NotActive = Key_ptr(pKey)->Callbacks.callbacks[state](Key_ptr(pKey), state);
 ;PCODE: $0000004E VOL: 0
 ;PCODE: $0000004F VOL: 0
 ;PCODE: $00000050 VOL: 0
@@ -163,7 +167,11 @@
 ;PCODE: $00000060 VOL: 0
 ;PCODE: $00000061 VOL: 0
 ;PCODE: $00000062 VOL: 0
+; 0001 003F             }
+; 0001 0040         #endif /* KEY_MULTI_CALLBACK_ENABLE */
+; 0001 0041         }
 ;PCODE: $00000063 VOL: 0
+; 0001 0042         else if (Key_State_None == state && Key_ptr(pKey)->NotActive != Key_NotHandled) {
 ;PCODE: $00000064 VOL: 0
 ;PCODE: $00000065 VOL: 0
 ;PCODE: $00000066 VOL: 0
@@ -171,21 +179,14 @@
 ;PCODE: $00000068 VOL: 0
 ;PCODE: $00000069 VOL: 0
 ;PCODE: $0000006A VOL: 0
-; 0001 003B             }
-; 0001 003C         #else
-; 0001 003D             if (Key_ptr(pKey)->Callbacks.onChange) {
-; 0001 003E                 Key_ptr(pKey)->NotActive = Key_ptr(pKey)->Callbacks.onChange(Key_ptr(pKey), state);
-; 0001 003F             }
-; 0001 0040         #endif /* KEY_MULTI_CALLBACK_ENABLE */
-; 0001 0041         }
 ;PCODE: $0000006B VOL: 0
-; 0001 0042         else if (Key_State_None == state && Key_ptr(pKey)->NotActive != Key_NotHandled) {
 ;PCODE: $0000006C VOL: 0
 ;PCODE: $0000006D VOL: 0
 ;PCODE: $0000006E VOL: 0
 ;PCODE: $0000006F VOL: 0
 ;PCODE: $00000070 VOL: 0
 ;PCODE: $00000071 VOL: 0
+; 0001 0043             Key_ptr(pKey)->NotActive = Key_NotHandled;
 ;PCODE: $00000072 VOL: 0
 ;PCODE: $00000073 VOL: 0
 ;PCODE: $00000074 VOL: 0
@@ -194,34 +195,25 @@
 ;PCODE: $00000077 VOL: 0
 ;PCODE: $00000078 VOL: 0
 ;PCODE: $00000079 VOL: 0
-; 0001 0043             Key_ptr(pKey)->NotActive = Key_NotHandled;
-;PCODE: $0000007A VOL: 0
-;PCODE: $0000007B VOL: 0
-;PCODE: $0000007C VOL: 0
-;PCODE: $0000007D VOL: 0
-;PCODE: $0000007E VOL: 0
-;PCODE: $0000007F VOL: 0
-;PCODE: $00000080 VOL: 0
-;PCODE: $00000081 VOL: 0
 ; 0001 0044         }
 ; 0001 0045     #if KEY_MAX_NUM == -1
 ; 0001 0046         // switch to previous key
 ; 0001 0047         pKey = pKey->Previous;
 ; 0001 0048     #else
 ; 0001 0049         pKey++;
-;PCODE: $00000082 VOL: 0
-;PCODE: $00000083 VOL: 0
-;PCODE: $00000084 VOL: 0
-;PCODE: $00000085 VOL: 0
+;PCODE: $0000007A VOL: 0
+;PCODE: $0000007B VOL: 0
+;PCODE: $0000007C VOL: 0
+;PCODE: $0000007D VOL: 0
 ; 0001 004A     #endif // KEY_MAX_NUM == -1
 ; 0001 004B     }
-;PCODE: $00000086 VOL: 0
-;PCODE: $00000087 VOL: 0
+;PCODE: $0000007E VOL: 0
+;PCODE: $0000007F VOL: 0
 ; 0001 004C }
-;PCODE: $00000088 VOL: 0
-;PCODE: $00000089 VOL: 0
-;PCODE: $0000008A VOL: 0
-;PCODE: $0000008B VOL: 0
+;PCODE: $00000080 VOL: 0
+;PCODE: $00000081 VOL: 0
+;PCODE: $00000082 VOL: 0
+;PCODE: $00000083 VOL: 0
 ;
 ;/**
 ; * @brief set new pin configuration for key
@@ -232,19 +224,19 @@
 ; */
 ;void Key_setConfig(Key* key, const Key_PinConfig* config) {
 ; 0001 0055 void Key_setConfig(Key* key, const Key_PinConfig* config) {
-;PCODE: $0000008C VOL: 0
-;PCODE: $0000008D VOL: 0
+;PCODE: $00000084 VOL: 0
+;PCODE: $00000085 VOL: 0
 ; 0001 0056     key->Config = config;
-;PCODE: $0000008E VOL: 0
+;PCODE: $00000086 VOL: 0
 ;	*key -> Y+2
 ;	*config -> Y+0
-;PCODE: $0000008F VOL: 0
-;PCODE: $00000090 VOL: 0
-;PCODE: $00000091 VOL: 0
+;PCODE: $00000087 VOL: 0
+;PCODE: $00000088 VOL: 0
+;PCODE: $00000089 VOL: 0
 ; 0001 0057 }
-;PCODE: $00000092 VOL: 0
-;PCODE: $00000093 VOL: 0
-;PCODE: $00000094 VOL: 0
+;PCODE: $0000008A VOL: 0
+;PCODE: $0000008B VOL: 0
+;PCODE: $0000008C VOL: 0
 ;/**
 ; * @brief get key pin config
 ; *
@@ -253,17 +245,17 @@
 ; */
 ;const Key_PinConfig* Key_getConfig(Key* key) {
 ; 0001 005E const Key_PinConfig* Key_getConfig(Key* key) {
-;PCODE: $00000095 VOL: 0
-;PCODE: $00000096 VOL: 0
+;PCODE: $0000008D VOL: 0
+;PCODE: $0000008E VOL: 0
 ; 0001 005F     return key->Config;
-;PCODE: $00000097 VOL: 0
+;PCODE: $0000008F VOL: 0
 ;	*key -> Y+0
-;PCODE: $00000098 VOL: 0
-;PCODE: $00000099 VOL: 0
-;PCODE: $0000009A VOL: 0
-;PCODE: $0000009B VOL: 0
+;PCODE: $00000090 VOL: 0
+;PCODE: $00000091 VOL: 0
+;PCODE: $00000092 VOL: 0
+;PCODE: $00000093 VOL: 0
 ; 0001 0060 }
-;PCODE: $0000009C VOL: 0
+;PCODE: $00000094 VOL: 0
 ;
 ;/**
 ; * @brief add key into list for process
@@ -273,38 +265,38 @@
 ; */
 ;uint8_t Key_add(Key* key, const Key_PinConfig* config) {
 ; 0001 0068 uint8_t Key_add(Key* key, const Key_PinConfig* config) {
-;PCODE: $0000009D VOL: 0
-;PCODE: $0000009E VOL: 0
+;PCODE: $00000095 VOL: 0
+;PCODE: $00000096 VOL: 0
 ; 0001 0069     // add new key to list
 ; 0001 006A     key->State = Key_State_None;
-;PCODE: $0000009F VOL: 0
+;PCODE: $00000097 VOL: 0
 ;	*key -> Y+2
 ;	*config -> Y+0
+;PCODE: $00000098 VOL: 0
+;PCODE: $00000099 VOL: 0
+;PCODE: $0000009A VOL: 0
+;PCODE: $0000009B VOL: 0
+;PCODE: $0000009C VOL: 0
+; 0001 006B     key->NotActive = Key_NotHandled;
+;PCODE: $0000009D VOL: 0
+;PCODE: $0000009E VOL: 0
+;PCODE: $0000009F VOL: 0
 ;PCODE: $000000A0 VOL: 0
 ;PCODE: $000000A1 VOL: 0
 ;PCODE: $000000A2 VOL: 0
+; 0001 006C     Key_setConfig(key, config);
 ;PCODE: $000000A3 VOL: 0
 ;PCODE: $000000A4 VOL: 0
-; 0001 006B     key->NotActive = Key_NotHandled;
 ;PCODE: $000000A5 VOL: 0
 ;PCODE: $000000A6 VOL: 0
+; 0001 006D     // init IOs
+; 0001 006E     keyDriver->initPin(config);
 ;PCODE: $000000A7 VOL: 0
 ;PCODE: $000000A8 VOL: 0
 ;PCODE: $000000A9 VOL: 0
 ;PCODE: $000000AA VOL: 0
-; 0001 006C     Key_setConfig(key, config);
 ;PCODE: $000000AB VOL: 0
 ;PCODE: $000000AC VOL: 0
-;PCODE: $000000AD VOL: 0
-;PCODE: $000000AE VOL: 0
-; 0001 006D     // init IOs
-; 0001 006E     keyDriver->initPin(config);
-;PCODE: $000000AF VOL: 0
-;PCODE: $000000B0 VOL: 0
-;PCODE: $000000B1 VOL: 0
-;PCODE: $000000B2 VOL: 0
-;PCODE: $000000B3 VOL: 0
-;PCODE: $000000B4 VOL: 0
 ; 0001 006F #if KEY_MAX_NUM == -1
 ; 0001 0070     // add key to linked list
 ; 0001 0071     key->Previous = lastKey;
@@ -316,53 +308,53 @@
 ; 0001 0077         uint8_t len = KEY_MAX_NUM;
 ; 0001 0078         Key** pKey = keys;
 ; 0001 0079         while (len--) {
-;PCODE: $000000B5 VOL: 0
-;PCODE: $000000B6 VOL: 0
-;PCODE: $000000B7 VOL: 0
-;PCODE: $000000B8 VOL: 0
-;PCODE: $000000B9 VOL: 0
+;PCODE: $000000AD VOL: 0
+;PCODE: $000000AE VOL: 0
+;PCODE: $000000AF VOL: 0
+;PCODE: $000000B0 VOL: 0
+;PCODE: $000000B1 VOL: 0
 ;	*key -> Y+5
 ;	*config -> Y+3
 ;	len -> Y+2
 ;	*pKey -> Y+0
+;PCODE: $000000B2 VOL: 0
+;PCODE: $000000B3 VOL: 0
+;PCODE: $000000B4 VOL: 0
+;PCODE: $000000B5 VOL: 0
+;PCODE: $000000B6 VOL: 0
+;PCODE: $000000B7 VOL: 0
+; 0001 007A             if (KEY_NULL == *pKey) {
+;PCODE: $000000B8 VOL: 0
+;PCODE: $000000B9 VOL: 0
 ;PCODE: $000000BA VOL: 0
 ;PCODE: $000000BB VOL: 0
+; 0001 007B                 *pKey = key;
 ;PCODE: $000000BC VOL: 0
 ;PCODE: $000000BD VOL: 0
 ;PCODE: $000000BE VOL: 0
+; 0001 007C                 return 1;
 ;PCODE: $000000BF VOL: 0
-; 0001 007A             if (KEY_NULL == *pKey) {
 ;PCODE: $000000C0 VOL: 0
 ;PCODE: $000000C1 VOL: 0
 ;PCODE: $000000C2 VOL: 0
+; 0001 007D             }
+; 0001 007E             pKey++;
 ;PCODE: $000000C3 VOL: 0
-; 0001 007B                 *pKey = key;
 ;PCODE: $000000C4 VOL: 0
 ;PCODE: $000000C5 VOL: 0
 ;PCODE: $000000C6 VOL: 0
-; 0001 007C                 return 1;
+; 0001 007F         }
 ;PCODE: $000000C7 VOL: 0
 ;PCODE: $000000C8 VOL: 0
+; 0001 0080     }
 ;PCODE: $000000C9 VOL: 0
+; 0001 0081     return 0;
 ;PCODE: $000000CA VOL: 0
-; 0001 007D             }
-; 0001 007E             pKey++;
 ;PCODE: $000000CB VOL: 0
 ;PCODE: $000000CC VOL: 0
-;PCODE: $000000CD VOL: 0
-;PCODE: $000000CE VOL: 0
-; 0001 007F         }
-;PCODE: $000000CF VOL: 0
-;PCODE: $000000D0 VOL: 0
-; 0001 0080     }
-;PCODE: $000000D1 VOL: 0
-; 0001 0081     return 0;
-;PCODE: $000000D2 VOL: 0
-;PCODE: $000000D3 VOL: 0
-;PCODE: $000000D4 VOL: 0
 ; 0001 0082 #endif // KEY_MAX_NUM == -1
 ; 0001 0083 }
-;PCODE: $000000D5 VOL: 0
+;PCODE: $000000CD VOL: 0
 ;/**
 ; * @brief remove key from list
 ; *
@@ -371,8 +363,8 @@
 ; */
 ;uint8_t Key_remove(Key* remove) {
 ; 0001 008A uint8_t Key_remove(Key* remove) {
-;PCODE: $000000D6 VOL: 0
-;PCODE: $000000D7 VOL: 0
+;PCODE: $000000CE VOL: 0
+;PCODE: $000000CF VOL: 0
 ; 0001 008B #if KEY_MAX_NUM == -1
 ; 0001 008C     Key* pKey = lastKey;
 ; 0001 008D #else
@@ -380,18 +372,18 @@
 ; 0001 008F #endif // KEY_MAX_NUM == -1
 ; 0001 0090     // find key
 ; 0001 0091     while (KEY_NULL != Key_ptr(pKey)) {
-;PCODE: $000000D8 VOL: 0
-;PCODE: $000000D9 VOL: 0
-;PCODE: $000000DA VOL: 0
+;PCODE: $000000D0 VOL: 0
+;PCODE: $000000D1 VOL: 0
+;PCODE: $000000D2 VOL: 0
 ;	*remove -> Y+2
 ;	*pKey -> R16,R17
-;PCODE: $000000DB VOL: 0
-;PCODE: $000000DC VOL: 0
-;PCODE: $000000DD VOL: 0
-;PCODE: $000000DE VOL: 0
-;PCODE: $000000DF VOL: 0
-;PCODE: $000000E0 VOL: 0
-;PCODE: $000000E1 VOL: 0
+;PCODE: $000000D3 VOL: 0
+;PCODE: $000000D4 VOL: 0
+;PCODE: $000000D5 VOL: 0
+;PCODE: $000000D6 VOL: 0
+;PCODE: $000000D7 VOL: 0
+;PCODE: $000000D8 VOL: 0
+;PCODE: $000000D9 VOL: 0
 ; 0001 0092     #if KEY_MAX_NUM == -1
 ; 0001 0093         // check key with remove key
 ; 0001 0094         if (remove == pKey->Previous) {
@@ -409,89 +401,53 @@
 ; 0001 00A0         pKey = pKey->Previous;
 ; 0001 00A1     #else
 ; 0001 00A2         if (remove == *pKey) {
+;PCODE: $000000DA VOL: 0
+;PCODE: $000000DB VOL: 0
+;PCODE: $000000DC VOL: 0
+;PCODE: $000000DD VOL: 0
+;PCODE: $000000DE VOL: 0
+; 0001 00A3             *pKey = KEY_NULL;
+;PCODE: $000000DF VOL: 0
+;PCODE: $000000E0 VOL: 0
+;PCODE: $000000E1 VOL: 0
+; 0001 00A4             return 1;
 ;PCODE: $000000E2 VOL: 0
 ;PCODE: $000000E3 VOL: 0
 ;PCODE: $000000E4 VOL: 0
 ;PCODE: $000000E5 VOL: 0
 ;PCODE: $000000E6 VOL: 0
-; 0001 00A3             *pKey = KEY_NULL;
 ;PCODE: $000000E7 VOL: 0
 ;PCODE: $000000E8 VOL: 0
+; 0001 00A5         }
+; 0001 00A6         pKey++;
 ;PCODE: $000000E9 VOL: 0
-; 0001 00A4             return 1;
 ;PCODE: $000000EA VOL: 0
 ;PCODE: $000000EB VOL: 0
+; 0001 00A7     #endif // KEY_MAX_NUM == -1
+; 0001 00A8     }
 ;PCODE: $000000EC VOL: 0
 ;PCODE: $000000ED VOL: 0
+; 0001 00A9     return 0;
 ;PCODE: $000000EE VOL: 0
 ;PCODE: $000000EF VOL: 0
 ;PCODE: $000000F0 VOL: 0
-; 0001 00A5         }
-; 0001 00A6         pKey++;
 ;PCODE: $000000F1 VOL: 0
 ;PCODE: $000000F2 VOL: 0
 ;PCODE: $000000F3 VOL: 0
-; 0001 00A7     #endif // KEY_MAX_NUM == -1
-; 0001 00A8     }
 ;PCODE: $000000F4 VOL: 0
-;PCODE: $000000F5 VOL: 0
-; 0001 00A9     return 0;
-;PCODE: $000000F6 VOL: 0
-;PCODE: $000000F7 VOL: 0
-;PCODE: $000000F8 VOL: 0
-;PCODE: $000000F9 VOL: 0
-;PCODE: $000000FA VOL: 0
-;PCODE: $000000FB VOL: 0
-;PCODE: $000000FC VOL: 0
 ; 0001 00AA }
-;PCODE: $000000FD VOL: 0
+;PCODE: $000000F5 VOL: 0
 ;
 ;#if KEY_MULTI_CALLBACK
 ;void Key_onHold(Key* key, Key_Callback cb) {
-; 0001 00AD void Key_onHold(Key* key, Key_Callback cb) {
-;PCODE: $000000FE VOL: 0
-;PCODE: $000000FF VOL: 0
-; 0001 00AE     key->Callbacks.onHold = cb;
-;PCODE: $00000100 VOL: 0
-;	*key -> Y+2
-;	*cb -> Y+0
-;PCODE: $00000101 VOL: 0
-;PCODE: $00000102 VOL: 0
-;PCODE: $00000103 VOL: 0
-; 0001 00AF }
-;PCODE: $00000104 VOL: 0
-;PCODE: $00000105 VOL: 0
-;PCODE: $00000106 VOL: 0
+;    key->Callbacks.onHold = cb;
+;}
 ;void Key_onReleased(Key* key, Key_Callback cb) {
-; 0001 00B0 void Key_onReleased(Key* key, Key_Callback cb) {
-;PCODE: $00000107 VOL: 0
-;PCODE: $00000108 VOL: 0
-; 0001 00B1     key->Callbacks.onReleased = cb;
-;PCODE: $00000109 VOL: 0
-;	*key -> Y+2
-;	*cb -> Y+0
-;PCODE: $0000010A VOL: 0
-;PCODE: $0000010B VOL: 0
-;PCODE: $0000010C VOL: 0
-; 0001 00B2 }
-;PCODE: $0000010D VOL: 0
-;PCODE: $0000010E VOL: 0
-;PCODE: $0000010F VOL: 0
+;    key->Callbacks.onReleased = cb;
+;}
 ;void Key_onPressed(Key* key, Key_Callback cb) {
-; 0001 00B3 void Key_onPressed(Key* key, Key_Callback cb) {
-;PCODE: $00000110 VOL: 0
-;PCODE: $00000111 VOL: 0
-; 0001 00B4     key->Callbacks.onPressed = cb;
-;PCODE: $00000112 VOL: 0
-;	*key -> Y+2
-;	*cb -> Y+0
-;PCODE: $00000113 VOL: 0
-;PCODE: $00000114 VOL: 0
-;PCODE: $00000115 VOL: 0
-; 0001 00B5 }
-;PCODE: $00000116 VOL: 0
-;PCODE: $00000117 VOL: 0
-;PCODE: $00000118 VOL: 0
+;    key->Callbacks.onPressed = cb;
+;}
 ;#if KEY_NONE_CALLBACK
 ;void Key_onNone(Key* key, Key_Callback cb) {
 ;    key->Callbacks.onNone = cb;
@@ -499,8 +455,20 @@
 ;#endif // KEY_NONE_CALLBACK
 ;#else
 ;void Key_onChange(Key* key, Key_Callback cb) {
-;    key->Callbacks.onChange = cb;
-;}
+; 0001 00BC void Key_onChange(Key* key, Key_Callback cb) {
+;PCODE: $000000F6 VOL: 0
+;PCODE: $000000F7 VOL: 0
+; 0001 00BD     key->Callbacks.onChange = cb;
+;PCODE: $000000F8 VOL: 0
+;	*key -> Y+2
+;	*cb -> Y+0
+;PCODE: $000000F9 VOL: 0
+;PCODE: $000000FA VOL: 0
+;PCODE: $000000FB VOL: 0
+; 0001 00BE }
+;PCODE: $000000FC VOL: 0
+;PCODE: $000000FD VOL: 0
+;PCODE: $000000FE VOL: 0
 ;#endif // KEY_MULTI_CALLBACK
 ;
 ;#if KEY_ACTIVE_STATE

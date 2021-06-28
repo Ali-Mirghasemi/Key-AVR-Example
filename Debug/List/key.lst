@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.1.30  D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm Mon Jun 28 07:15:44 2021
+AVRASM ver. 2.1.30  D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm Mon Jun 28 07:26:57 2021
 
                  
                  
@@ -1101,7 +1101,7 @@ AVRASM ver. 2.1.30  D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\
 000006 940c 0000 	JMP  0x00
 000008 940c 0000 	JMP  0x00
 00000a 940c 0000 	JMP  0x00
-00000c 940c 00d4 	JMP  _timer1_compa_isr
+00000c 940c 00bc 	JMP  _timer1_compa_isr
 00000e 940c 0000 	JMP  0x00
 000010 940c 0000 	JMP  0x00
 000012 940c 0000 	JMP  0x00
@@ -1118,8 +1118,8 @@ AVRASM ver. 2.1.30  D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\
 000028 940c 0000 	JMP  0x00
                  
                  _0x3:
-00002a 022c
-00002b 024b      	.DB  LOW(_Key_initPin),HIGH(_Key_initPin),LOW(_Key_readPin),HIGH(_Key_readPin)
+00002a 0218
+00002b 0237      	.DB  LOW(_Key_initPin),HIGH(_Key_initPin),LOW(_Key_readPin),HIGH(_Key_readPin)
                  _0x4:
 00002c 0030
 D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1119): warning: .cseg .db misalignment - padding zero byte
@@ -1133,8 +1133,8 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1121): 
 D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): warning: .cseg .db misalignment - padding zero byte
 000031 0004      	.DB  0x30,0x0,0x4
                  _0x40003:
-000032 022c
-000033 024b      	.DB  LOW(_Key_initPin),HIGH(_Key_initPin),LOW(_Key_readPin),HIGH(_Key_readPin)
+000032 0218
+000033 0237      	.DB  LOW(_Key_initPin),HIGH(_Key_initPin),LOW(_Key_readPin),HIGH(_Key_readPin)
                  
                  __GLOBAL_INI_TBL:
 000034 0004      	.DW  0x04
@@ -1356,7 +1356,7 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  ; 0000 0054     Key_init(&keyDriver);
 000085 e6a0      	LDI  R26,LOW(_keyDriver_G000)
 000086 e0b1      	LDI  R27,HIGH(_keyDriver_G000)
-000087 940e 0117 	CALL _Key_init
+000087 940e 0125 	CALL _Key_init
                  ; 0000 0055     Key_add(&key1, &keyConfig1);
 000089 e6ed      	LDI  R30,LOW(_key1_G000)
 00008a e0f1      	LDI  R31,HIGH(_key1_G000)
@@ -1364,83 +1364,62 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
 00008c 93ea      	ST   -Y,R30
 00008d e6a4      	LDI  R26,LOW(_keyConfig1)
 00008e e0b1      	LDI  R27,HIGH(_keyConfig1)
-00008f 940e 01c0 	CALL _Key_add
+00008f 940e 01c2 	CALL _Key_add
                  ; 0000 0056     Key_add(&key2, &keyConfig2);
-000091 e7e6      	LDI  R30,LOW(_key2_G000)
+000091 e7e2      	LDI  R30,LOW(_key2_G000)
 000092 e0f1      	LDI  R31,HIGH(_key2_G000)
 000093 93fa      	ST   -Y,R31
 000094 93ea      	ST   -Y,R30
 000095 e6a7      	LDI  R26,LOW(_keyConfig2)
 000096 e0b1      	LDI  R27,HIGH(_keyConfig2)
-000097 940e 01c0 	CALL _Key_add
+000097 940e 01c2 	CALL _Key_add
                  ; 0000 0057     Key_add(&key3, &keyConfig3);
-000099 e7ef      	LDI  R30,LOW(_key3_G000)
+000099 e7e7      	LDI  R30,LOW(_key3_G000)
 00009a e0f1      	LDI  R31,HIGH(_key3_G000)
 00009b 93fa      	ST   -Y,R31
 00009c 93ea      	ST   -Y,R30
 00009d e6aa      	LDI  R26,LOW(_keyConfig3)
 00009e e0b1      	LDI  R27,HIGH(_keyConfig3)
-00009f 940e 01c0 	CALL _Key_add
+00009f 940e 01c2 	CALL _Key_add
                  ; 0000 0058 #if KEY_MULTI_CALLBACK
                  ; 0000 0059     Key_onPressed(&key1, Key1_onPressed);
+                 ; 0000 005A 
+                 ; 0000 005B     Key_onPressed(&key2, Key2_onPressed);
+                 ; 0000 005C     Key_onReleased(&key2, Key2_onReleased);
+                 ; 0000 005D 
+                 ; 0000 005E     Key_onPressed(&key3, Key3_onPressed);
+                 ; 0000 005F     Key_onReleased(&key3, Key3_onReleased);
+                 ; 0000 0060     Key_onHold(&key3, Key3_onHold);
+                 ; 0000 0061 #else
+                 ; 0000 0062     Key_onChange(&key1, Key1_onChange);
 0000a1 e6ed      	LDI  R30,LOW(_key1_G000)
 0000a2 e0f1      	LDI  R31,HIGH(_key1_G000)
 0000a3 93fa      	ST   -Y,R31
 0000a4 93ea      	ST   -Y,R30
-0000a5 efa1      	LDI  R26,LOW(_Key1_onPressed)
-0000a6 e0b0      	LDI  R27,HIGH(_Key1_onPressed)
-0000a7 940e 0221 	CALL _Key_onPressed
-                 ; 0000 005A 
-                 ; 0000 005B     Key_onPressed(&key2, Key2_onPressed);
-0000a9 e7e6      	LDI  R30,LOW(_key2_G000)
+0000a5 eda9      	LDI  R26,LOW(_Key1_onChange)
+0000a6 e0b0      	LDI  R27,HIGH(_Key1_onChange)
+0000a7 940e 020d 	CALL _Key_onChange
+                 ; 0000 0063     Key_onChange(&key2, Key2_onChange);
+0000a9 e7e2      	LDI  R30,LOW(_key2_G000)
 0000aa e0f1      	LDI  R31,HIGH(_key2_G000)
 0000ab 93fa      	ST   -Y,R31
 0000ac 93ea      	ST   -Y,R30
-0000ad efaa      	LDI  R26,LOW(_Key2_onPressed)
-0000ae e0b0      	LDI  R27,HIGH(_Key2_onPressed)
-0000af 940e 0221 	CALL _Key_onPressed
-                 ; 0000 005C     Key_onReleased(&key2, Key2_onReleased);
-0000b1 e7e6      	LDI  R30,LOW(_key2_G000)
-0000b2 e0f1      	LDI  R31,HIGH(_key2_G000)
+0000ad eeaa      	LDI  R26,LOW(_Key2_onChange)
+0000ae e0b0      	LDI  R27,HIGH(_Key2_onChange)
+0000af 940e 020d 	CALL _Key_onChange
+                 ; 0000 0064     Key_onChange(&key3, Key3_onChange);
+0000b1 e7e7      	LDI  R30,LOW(_key3_G000)
+0000b2 e0f1      	LDI  R31,HIGH(_key3_G000)
 0000b3 93fa      	ST   -Y,R31
 0000b4 93ea      	ST   -Y,R30
-0000b5 efaf      	LDI  R26,LOW(_Key2_onReleased)
-0000b6 e0b0      	LDI  R27,HIGH(_Key2_onReleased)
-0000b7 940e 0216 	CALL _Key_onReleased
-                 ; 0000 005D 
-                 ; 0000 005E     Key_onPressed(&key3, Key3_onPressed);
-0000b9 e7ef      	LDI  R30,LOW(_key3_G000)
-0000ba e0f1      	LDI  R31,HIGH(_key3_G000)
-0000bb 93fa      	ST   -Y,R31
-0000bc 93ea      	ST   -Y,R30
-0000bd e0a4      	LDI  R26,LOW(_Key3_onPressed)
-0000be e0b1      	LDI  R27,HIGH(_Key3_onPressed)
-0000bf 940e 0221 	CALL _Key_onPressed
-                 ; 0000 005F     Key_onReleased(&key3, Key3_onReleased);
-0000c1 e7ef      	LDI  R30,LOW(_key3_G000)
-0000c2 e0f1      	LDI  R31,HIGH(_key3_G000)
-0000c3 93fa      	ST   -Y,R31
-0000c4 93ea      	ST   -Y,R30
-0000c5 e0a9      	LDI  R26,LOW(_Key3_onReleased)
-0000c6 e0b1      	LDI  R27,HIGH(_Key3_onReleased)
-0000c7 940e 0216 	CALL _Key_onReleased
-                 ; 0000 0060     Key_onHold(&key3, Key3_onHold);
-0000c9 e7ef      	LDI  R30,LOW(_key3_G000)
-0000ca e0f1      	LDI  R31,HIGH(_key3_G000)
-0000cb 93fa      	ST   -Y,R31
-0000cc 93ea      	ST   -Y,R30
-0000cd e0ae      	LDI  R26,LOW(_Key3_onHold)
-0000ce e0b1      	LDI  R27,HIGH(_Key3_onHold)
-0000cf 940e 020b 	CALL _Key_onHold
-                 ; 0000 0061 #else
-                 ; 0000 0062     Key_onChange(&key1, Key1_onChange);
-                 ; 0000 0063     Key_onChange(&key2, Key2_onChange);
-                 ; 0000 0064     Key_onChange(&key3, Key3_onChange);
+0000b5 e0a6      	LDI  R26,LOW(_Key3_onChange)
+0000b6 e0b1      	LDI  R27,HIGH(_Key3_onChange)
+0000b7 940e 020d 	CALL _Key_onChange
                  ; 0000 0065 #endif
                  ; 0000 0066 
                  ; 0000 0067     // Global enable interrupts
                  ; 0000 0068     #asm("sei")
-0000d1 9478      	sei
+0000b9 9478      	sei
                  ; 0000 0069 
                  ; 0000 006A while (1)
                  _0xD:
@@ -1448,165 +1427,210 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  ; 0000 006C     // Please write your application code here
                  ; 0000 006D 
                  ; 0000 006E     }
-0000d2 cfff      	RJMP _0xD
+0000ba cfff      	RJMP _0xD
                  _0xF:
                  ; 0000 006F }
                  _0x10:
-0000d3 cfff      	RJMP _0x10
+0000bb cfff      	RJMP _0x10
                  ; .FEND
                  ;
                  ;interrupt [TIM1_COMPA] void timer1_compa_isr(void)
                  ; 0000 0072 {
                  _timer1_compa_isr:
                  ; .FSTART _timer1_compa_isr
-0000d4 920a      	ST   -Y,R0
-0000d5 921a      	ST   -Y,R1
-0000d6 92fa      	ST   -Y,R15
-0000d7 936a      	ST   -Y,R22
-0000d8 937a      	ST   -Y,R23
-0000d9 938a      	ST   -Y,R24
-0000da 939a      	ST   -Y,R25
-0000db 93aa      	ST   -Y,R26
-0000dc 93ba      	ST   -Y,R27
-0000dd 93ea      	ST   -Y,R30
-0000de 93fa      	ST   -Y,R31
-0000df b7ef      	IN   R30,SREG
-0000e0 93ea      	ST   -Y,R30
+0000bc 920a      	ST   -Y,R0
+0000bd 921a      	ST   -Y,R1
+0000be 92fa      	ST   -Y,R15
+0000bf 936a      	ST   -Y,R22
+0000c0 937a      	ST   -Y,R23
+0000c1 938a      	ST   -Y,R24
+0000c2 939a      	ST   -Y,R25
+0000c3 93aa      	ST   -Y,R26
+0000c4 93ba      	ST   -Y,R27
+0000c5 93ea      	ST   -Y,R30
+0000c6 93fa      	ST   -Y,R31
+0000c7 b7ef      	IN   R30,SREG
+0000c8 93ea      	ST   -Y,R30
                  ; 0000 0073     Key_irq();
-0000e1 940e 0121 	CALL _Key_irq
+0000c9 940e 012f 	CALL _Key_irq
                  ; 0000 0074 }
-0000e3 91e9      	LD   R30,Y+
-0000e4 bfef      	OUT  SREG,R30
-0000e5 91f9      	LD   R31,Y+
-0000e6 91e9      	LD   R30,Y+
-0000e7 91b9      	LD   R27,Y+
-0000e8 91a9      	LD   R26,Y+
-0000e9 9199      	LD   R25,Y+
-0000ea 9189      	LD   R24,Y+
-0000eb 9179      	LD   R23,Y+
-0000ec 9169      	LD   R22,Y+
-0000ed 90f9      	LD   R15,Y+
-0000ee 9019      	LD   R1,Y+
-0000ef 9009      	LD   R0,Y+
-0000f0 9518      	RETI
+0000cb 91e9      	LD   R30,Y+
+0000cc bfef      	OUT  SREG,R30
+0000cd 91f9      	LD   R31,Y+
+0000ce 91e9      	LD   R30,Y+
+0000cf 91b9      	LD   R27,Y+
+0000d0 91a9      	LD   R26,Y+
+0000d1 9199      	LD   R25,Y+
+0000d2 9189      	LD   R24,Y+
+0000d3 9179      	LD   R23,Y+
+0000d4 9169      	LD   R22,Y+
+0000d5 90f9      	LD   R15,Y+
+0000d6 9019      	LD   R1,Y+
+0000d7 9009      	LD   R0,Y+
+0000d8 9518      	RETI
                  ; .FEND
                  ;
                  ;// Callbacks
                  ;#if KEY_MULTI_CALLBACK
                  ;Key_HandleStatus Key1_onPressed(Key* key, Key_State state) {
-                 ; 0000 0078 Key_HandleStatus Key1_onPressed(Key* key, Key_State state) {
-                 _Key1_onPressed:
-                 ; .FSTART _Key1_onPressed
-                 ; 0000 0079     LED0 = !LED0;
-0000f1 93aa      	ST   -Y,R26
-                 ;	*key -> Y+1
-                 ;	state -> Y+0
-0000f2 9bd8      	SBIS 0x1B,0
-0000f3 c002      	RJMP _0x11
-0000f4 98d8      	CBI  0x1B,0
-0000f5 c001      	RJMP _0x12
-                 _0x11:
-0000f6 9ad8      	SBI  0x1B,0
-                 _0x12:
-                 ; 0000 007A     return Key_Handled;
-0000f7 e0e1      	LDI  R30,LOW(1)
-0000f8 9623      	ADIW R28,3
-0000f9 9508      	RET
-                 ; 0000 007B }
-                 ; .FEND
+                 ;    LED0 = !LED0;
+                 ;    return Key_Handled;
+                 ;}
                  ;
                  ;Key_HandleStatus Key2_onPressed(Key* key, Key_State state) {
-                 ; 0000 007D Key_HandleStatus Key2_onPressed(Key* key, Key_State state) {
-                 _Key2_onPressed:
-                 ; .FSTART _Key2_onPressed
-                 ; 0000 007E     LED1 = 1;
-0000fa 93aa      	ST   -Y,R26
-                 ;	*key -> Y+1
-                 ;	state -> Y+0
-0000fb 9ad9      	SBI  0x1B,1
-                 ; 0000 007F     return Key_NotHandled;
-0000fc e0e0      	LDI  R30,LOW(0)
-0000fd 9623      	ADIW R28,3
-0000fe 9508      	RET
-                 ; 0000 0080 }
-                 ; .FEND
+                 ;    LED1 = 1;
+                 ;    return Key_NotHandled;
+                 ;}
                  ;Key_HandleStatus Key2_onReleased(Key* key, Key_State state) {
-                 ; 0000 0081 Key_HandleStatus Key2_onReleased(Key* key, Key_State state) {
-                 _Key2_onReleased:
-                 ; .FSTART _Key2_onReleased
-                 ; 0000 0082     LED1 = 0;
-0000ff 93aa      	ST   -Y,R26
-                 ;	*key -> Y+1
-                 ;	state -> Y+0
-000100 98d9      	CBI  0x1B,1
-                 ; 0000 0083     return Key_Handled;
-000101 e0e1      	LDI  R30,LOW(1)
-000102 9623      	ADIW R28,3
-000103 9508      	RET
-                 ; 0000 0084 }
-                 ; .FEND
+                 ;    LED1 = 0;
+                 ;    return Key_Handled;
+                 ;}
                  ;
                  ;Key_HandleStatus Key3_onPressed(Key* key, Key_State state) {
-                 ; 0000 0086 Key_HandleStatus Key3_onPressed(Key* key, Key_State state) {
-                 _Key3_onPressed:
-                 ; .FSTART _Key3_onPressed
-                 ; 0000 0087     LED2 = 1;
-000104 93aa      	ST   -Y,R26
-                 ;	*key -> Y+1
-                 ;	state -> Y+0
-000105 9ada      	SBI  0x1B,2
-                 ; 0000 0088     return Key_NotHandled;
-000106 e0e0      	LDI  R30,LOW(0)
-000107 9623      	ADIW R28,3
-000108 9508      	RET
-                 ; 0000 0089 }
-                 ; .FEND
+                 ;    LED2 = 1;
+                 ;    return Key_NotHandled;
+                 ;}
                  ;Key_HandleStatus Key3_onReleased(Key* key, Key_State state) {
-                 ; 0000 008A Key_HandleStatus Key3_onReleased(Key* key, Key_State state) {
-                 _Key3_onReleased:
-                 ; .FSTART _Key3_onReleased
-                 ; 0000 008B     LED2 = 0;
-000109 93aa      	ST   -Y,R26
-                 ;	*key -> Y+1
-                 ;	state -> Y+0
-00010a 98da      	CBI  0x1B,2
-                 ; 0000 008C     return Key_NotHandled;
-00010b e0e0      	LDI  R30,LOW(0)
-00010c 9623      	ADIW R28,3
-00010d 9508      	RET
-                 ; 0000 008D }
-                 ; .FEND
+                 ;    LED2 = 0;
+                 ;    return Key_NotHandled;
+                 ;}
                  ;Key_HandleStatus Key3_onHold(Key* key, Key_State state) {
-                 ; 0000 008E Key_HandleStatus Key3_onHold(Key* key, Key_State state) {
-                 _Key3_onHold:
-                 ; .FSTART _Key3_onHold
-                 ; 0000 008F     LED2 = !LED2;
-00010e 93aa      	ST   -Y,R26
-                 ;	*key -> Y+1
-                 ;	state -> Y+0
-00010f 9bda      	SBIS 0x1B,2
-000110 c002      	RJMP _0x1B
-000111 98da      	CBI  0x1B,2
-000112 c001      	RJMP _0x1C
-                 _0x1B:
-000113 9ada      	SBI  0x1B,2
-                 _0x1C:
-                 ; 0000 0090     return Key_NotHandled;
-000114 e0e0      	LDI  R30,LOW(0)
-000115 9623      	ADIW R28,3
-000116 9508      	RET
-                 ; 0000 0091 }
-                 ; .FEND
+                 ;    LED2 = !LED2;
+                 ;    return Key_NotHandled;
+                 ;}
                  ;#else
                  ;Key_HandleStatus Key1_onChange(Key* key, Key_State state) {
-                 ;
-                 ;}
+                 ; 0000 0093 Key_HandleStatus Key1_onChange(Key* key, Key_State state) {
+                 _Key1_onChange:
+                 ; .FSTART _Key1_onChange
+                 ; 0000 0094     if (Key_State_Pressed == state) {
+0000d9 93aa      	ST   -Y,R26
+                 ;	*key -> Y+1
+                 ;	state -> Y+0
+0000da 81e8      	LD   R30,Y
+0000db 30e2      	CPI  R30,LOW(0x2)
+0000dc f011      	BREQ PC+3
+0000dd 940c 00e7 	JMP _0x11
+                 ; 0000 0095         LED0 = !LED0;
+0000df 9bd8      	SBIS 0x1B,0
+0000e0 c002      	RJMP _0x12
+0000e1 98d8      	CBI  0x1B,0
+0000e2 c001      	RJMP _0x13
+                 _0x12:
+0000e3 9ad8      	SBI  0x1B,0
+                 _0x13:
+                 ; 0000 0096         return Key_Handled;
+0000e4 e0e1      	LDI  R30,LOW(1)
+0000e5 9623      	ADIW R28,3
+0000e6 9508      	RET
+                 ; 0000 0097     }
+                 ; 0000 0098     return Key_NotHandled;
+                 _0x11:
+0000e7 e0e0      	LDI  R30,LOW(0)
+0000e8 9623      	ADIW R28,3
+0000e9 9508      	RET
+                 ; 0000 0099 }
+                 ; .FEND
                  ;Key_HandleStatus Key2_onChange(Key* key, Key_State state) {
-                 ;
-                 ;}
+                 ; 0000 009A Key_HandleStatus Key2_onChange(Key* key, Key_State state) {
+                 _Key2_onChange:
+                 ; .FSTART _Key2_onChange
+                 ; 0000 009B     switch (state) {
+0000ea 93aa      	ST   -Y,R26
+                 ;	*key -> Y+1
+                 ;	state -> Y+0
+0000eb 81e8      	LD   R30,Y
+0000ec e0f0      	LDI  R31,0
+                 ; 0000 009C         case Key_State_Pressed:
+0000ed 30e2      	CPI  R30,LOW(0x2)
+0000ee e0a0      	LDI  R26,HIGH(0x2)
+0000ef 07fa      	CPC  R31,R26
+0000f0 f011      	BREQ PC+3
+0000f1 940c 00f7 	JMP _0x17
+                 ; 0000 009D             LED1 = 1;
+0000f3 9ad9      	SBI  0x1B,1
+                 ; 0000 009E             return Key_NotHandled;
+0000f4 e0e0      	LDI  R30,LOW(0)
+0000f5 9623      	ADIW R28,3
+0000f6 9508      	RET
+                 ; 0000 009F         case Key_State_Released:
+                 _0x17:
+0000f7 30e1      	CPI  R30,LOW(0x1)
+0000f8 e0a0      	LDI  R26,HIGH(0x1)
+0000f9 07fa      	CPC  R31,R26
+0000fa f011      	BREQ PC+3
+0000fb 940c 0101 	JMP _0x1D
+                 ; 0000 00A0             LED1 = 0;
+0000fd 98d9      	CBI  0x1B,1
+                 ; 0000 00A1             return Key_Handled;
+0000fe e0e1      	LDI  R30,LOW(1)
+0000ff 9623      	ADIW R28,3
+000100 9508      	RET
+                 ; 0000 00A2         default:
+                 _0x1D:
+                 ; 0000 00A3             return Key_NotHandled;
+000101 e0e0      	LDI  R30,LOW(0)
+000102 9623      	ADIW R28,3
+000103 9508      	RET
+                 ; 0000 00A4     }
+                 _0x16:
+                 ; 0000 00A5 }
+000104 9623      	ADIW R28,3
+000105 9508      	RET
+                 ; .FEND
                  ;Key_HandleStatus Key3_onChange(Key* key, Key_State state) {
-                 ;
-                 ;}
+                 ; 0000 00A6 Key_HandleStatus Key3_onChange(Key* key, Key_State state) {
+                 _Key3_onChange:
+                 ; .FSTART _Key3_onChange
+                 ; 0000 00A7     switch (state) {
+000106 93aa      	ST   -Y,R26
+                 ;	*key -> Y+1
+                 ;	state -> Y+0
+000107 81e8      	LD   R30,Y
+000108 e0f0      	LDI  R31,0
+                 ; 0000 00A8         case Key_State_Pressed:
+000109 30e2      	CPI  R30,LOW(0x2)
+00010a e0a0      	LDI  R26,HIGH(0x2)
+00010b 07fa      	CPC  R31,R26
+00010c f011      	BREQ PC+3
+00010d 940c 0111 	JMP _0x21
+                 ; 0000 00A9             LED2 = 1;
+00010f 9ada      	SBI  0x1B,2
+                 ; 0000 00AA             break;
+000110 c011      	RJMP _0x20
+                 ; 0000 00AB         case Key_State_Released:
+                 _0x21:
+000111 30e1      	CPI  R30,LOW(0x1)
+000112 e0a0      	LDI  R26,HIGH(0x1)
+000113 07fa      	CPC  R31,R26
+000114 f011      	BREQ PC+3
+000115 940c 0119 	JMP _0x24
+                 ; 0000 00AC             LED2 = 0;
+000117 98da      	CBI  0x1B,2
+                 ; 0000 00AD             break;
+000118 c009      	RJMP _0x20
+                 ; 0000 00AE         case Key_State_Hold:
+                 _0x24:
+000119 9730      	SBIW R30,0
+00011a f011      	BREQ PC+3
+00011b 940c 0122 	JMP _0x20
+                 ; 0000 00AF             LED2 = !LED2;
+00011d 9bda      	SBIS 0x1B,2
+00011e c002      	RJMP _0x28
+00011f 98da      	CBI  0x1B,2
+000120 c001      	RJMP _0x29
+                 _0x28:
+000121 9ada      	SBI  0x1B,2
+                 _0x29:
+                 ; 0000 00B0             break;
+                 ; 0000 00B1     }
+                 _0x20:
+                 ; 0000 00B2     return Key_NotHandled;
+000122 e0e0      	LDI  R30,LOW(0)
+000123 9623      	ADIW R28,3
+000124 9508      	RET
+                 ; 0000 00B3 }
+                 ; .FEND
                  ;#endif
                  ;
                  ;#include "Key.h"
@@ -1640,16 +1664,16 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  _Key_init:
                  ; .FSTART _Key_init
                  ; 0001 001A     keyDriver = driver;
-000117 93ba      	ST   -Y,R27
-000118 93aa      	ST   -Y,R26
+000125 93ba      	ST   -Y,R27
+000126 93aa      	ST   -Y,R26
                  ;	*driver -> Y+0
-000119 81e8      	LD   R30,Y
-00011a 81f9      	LDD  R31,Y+1
-00011b 93e0 0188 	STS  _keyDriver_G001,R30
-00011d 93f0 0189 	STS  _keyDriver_G001+1,R31
+000127 81e8      	LD   R30,Y
+000128 81f9      	LDD  R31,Y+1
+000129 93e0 017c 	STS  _keyDriver_G001,R30
+00012b 93f0 017d 	STS  _keyDriver_G001+1,R31
                  ; 0001 001B }
-00011f 9622      	ADIW R28,2
-000120 9508      	RET
+00012d 9622      	ADIW R28,2
+00012e 9508      	RET
                  ; .FEND
                  ;/**
                  ; * @brief user must place it in timer with 20ms ~ 50ms
@@ -1667,167 +1691,155 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  ; 0001 0026     Key** pKey = keys;
                  ; 0001 0027     uint8_t len = KEY_MAX_NUM;
                  ; 0001 0028     while (len--) {
-000121 940e 0264 	CALL __SAVELOCR4
+00012f 940e 0250 	CALL __SAVELOCR4
                  ;	state -> R17
                  ;	*pKey -> R18,R19
                  ;	len -> R16
                 +
-000123 e82a     +LDI R18 , LOW ( _keys_G001 )
-000124 e031     +LDI R19 , HIGH ( _keys_G001 )
+000131 e72e     +LDI R18 , LOW ( _keys_G001 )
+000132 e031     +LDI R19 , HIGH ( _keys_G001 )
                  	__POINTWRM 18,19,_keys_G001
-000125 e003      	LDI  R16,3
+000133 e003      	LDI  R16,3
                  _0x20003:
-000126 2fe0      	MOV  R30,R16
-000127 5001      	SUBI R16,1
-000128 30e0      	CPI  R30,0
-000129 f411      	BRNE PC+3
-00012a 940c 01b2 	JMP _0x20005
+000134 2fe0      	MOV  R30,R16
+000135 5001      	SUBI R16,1
+000136 30e0      	CPI  R30,0
+000137 f411      	BRNE PC+3
+000138 940c 01b4 	JMP _0x20005
                  ; 0001 0029 #endif
                  ; 0001 002A         // update current state
                  ; 0001 002B         state = Key_ptr(pKey)->State;
-00012c 01d9      	MOVW R26,R18
-00012d 940e 0260 	CALL __GETW1P
-00012f 85e0      	LDD  R30,Z+8
-000130 70e3      	ANDI R30,LOW(0x3)
-000131 2f1e      	MOV  R17,R30
+00013a 01d9      	MOVW R26,R18
+00013b 940e 024c 	CALL __GETW1P
+00013d 81e4      	LDD  R30,Z+4
+00013e 70e3      	ANDI R30,LOW(0x3)
+00013f 2f1e      	MOV  R17,R30
                  ; 0001 002C     #if KEY_ACTIVE_STATE
                  ; 0001 002D         state = ((state << 1) | (keyDriver->readPin(Key_ptr(pKey)->Config) ^ Key_ptr(pKey)->ActiveState)) & 0x03;
                  ; 0001 002E     #else
                  ; 0001 002F         state = ((state << 1) | keyDriver->readPin(Key_ptr(pKey)->Config)) & 0x03;
-000132 0fee      	LSL  R30
-000133 93ef      	PUSH R30
-000134 91e0 0188 	LDS  R30,_keyDriver_G001
-000136 91f0 0189 	LDS  R31,_keyDriver_G001+1
+000140 0fee      	LSL  R30
+000141 93ef      	PUSH R30
+000142 91e0 017c 	LDS  R30,_keyDriver_G001
+000144 91f0 017d 	LDS  R31,_keyDriver_G001+1
                 +
-000138 8002     +LDD R0 , Z + 2
-000139 8013     +LDD R1 , Z + 2 + 1
+000146 8002     +LDD R0 , Z + 2
+000147 8013     +LDD R1 , Z + 2 + 1
                  	__GETWRZ 0,1,2
-00013a 940e 0260 	CALL __GETW1P
-00013c 01df      	MOVW R26,R30
-00013d 940e 0260 	CALL __GETW1P
-00013f 01df      	MOVW R26,R30
-000140 01f0      	MOVW R30,R0
-000141 9509      	ICALL
-000142 91af      	POP  R26
-000143 2bea      	OR   R30,R26
-000144 70e3      	ANDI R30,LOW(0x3)
-000145 2f1e      	MOV  R17,R30
+000148 940e 024c 	CALL __GETW1P
+00014a 01df      	MOVW R26,R30
+00014b 940e 024c 	CALL __GETW1P
+00014d 01df      	MOVW R26,R30
+00014e 01f0      	MOVW R30,R0
+00014f 9509      	ICALL
+000150 91af      	POP  R26
+000151 2bea      	OR   R30,R26
+000152 70e3      	ANDI R30,LOW(0x3)
+000153 2f1e      	MOV  R17,R30
                  ; 0001 0030     #endif // KEY_ACTIVE_STATE
                  ; 0001 0031         Key_ptr(pKey)->State = state;
-000146 01d9      	MOVW R26,R18
-000147 940e 0260 	CALL __GETW1P
-000149 9638      	ADIW R30,8
-00014a 01df      	MOVW R26,R30
-00014b 2fe1      	MOV  R30,R17
-00014c 70e3      	ANDI R30,LOW(0x3)
-00014d 2e0e      	MOV  R0,R30
-00014e 91ec      	LD   R30,X
-00014f 7fec      	ANDI R30,LOW(0xFC)
-000150 29e0      	OR   R30,R0
-000151 93ec      	ST   X,R30
+000154 01d9      	MOVW R26,R18
+000155 940e 024c 	CALL __GETW1P
+000157 9634      	ADIW R30,4
+000158 01df      	MOVW R26,R30
+000159 2fe1      	MOV  R30,R17
+00015a 70e3      	ANDI R30,LOW(0x3)
+00015b 2e0e      	MOV  R0,R30
+00015c 91ec      	LD   R30,X
+00015d 7fec      	ANDI R30,LOW(0xFC)
+00015e 29e0      	OR   R30,R0
+00015f 93ec      	ST   X,R30
                  ; 0001 0032         // call callback on new state
                  ; 0001 0033 		if (Key_ptr(pKey)->NotActive == Key_NotHandled
                  ; 0001 0034         #if !KEY_NONE_CALLBACK
                  ; 0001 0035             && Key_State_None != state
                  ; 0001 0036         #endif
                  ; 0001 0037             ) {
-000152 01d9      	MOVW R26,R18
-000153 940e 0260 	CALL __GETW1P
-000155 85e0      	LDD  R30,Z+8
-000156 70e4      	ANDI R30,LOW(0x4)
-000157 f011      	BREQ PC+3
-000158 940c 015f 	JMP _0x20007
-00015a 3013      	CPI  R17,3
-00015b f411      	BRNE PC+3
-00015c 940c 015f 	JMP _0x20007
-00015e c001      	RJMP _0x20008
+000160 01d9      	MOVW R26,R18
+000161 940e 024c 	CALL __GETW1P
+000163 81e4      	LDD  R30,Z+4
+000164 70e4      	ANDI R30,LOW(0x4)
+000165 f011      	BREQ PC+3
+000166 940c 016d 	JMP _0x20007
+000168 3013      	CPI  R17,3
+000169 f411      	BRNE PC+3
+00016a 940c 016d 	JMP _0x20007
+00016c c001      	RJMP _0x20008
                  _0x20007:
-00015f c039      	RJMP _0x20006
+00016d c02d      	RJMP _0x20006
                  _0x20008:
                  ; 0001 0038         #if KEY_MULTI_CALLBACK
                  ; 0001 0039             if (Key_ptr(pKey)->Callbacks.callbacks[state]) {
-000160 01d9      	MOVW R26,R18
-000161 940e 0260 	CALL __GETW1P
-000163 9632      	ADIW R30,2
-000164 01df      	MOVW R26,R30
-000165 2fe1      	MOV  R30,R17
-000166 e0f0      	LDI  R31,0
-000167 0fee      	LSL  R30
-000168 1fff      	ROL  R31
-000169 0fae      	ADD  R26,R30
-00016a 1fbf      	ADC  R27,R31
-00016b 940e 0260 	CALL __GETW1P
-00016d 9730      	SBIW R30,0
-00016e f411      	BRNE PC+3
-00016f 940c 0198 	JMP _0x20009
                  ; 0001 003A                 Key_ptr(pKey)->NotActive = Key_ptr(pKey)->Callbacks.callbacks[state](Key_ptr(pKey), state);
-000171 01d9      	MOVW R26,R18
-000172 940e 0260 	CALL __GETW1P
-000174 9638      	ADIW R30,8
-000175 93ff      	PUSH R31
-000176 93ef      	PUSH R30
-000177 940e 0260 	CALL __GETW1P
-000179 9632      	ADIW R30,2
-00017a 01df      	MOVW R26,R30
-00017b 2fe1      	MOV  R30,R17
-00017c e0f0      	LDI  R31,0
-00017d 0fee      	LSL  R30
-00017e 1fff      	ROL  R31
-00017f 0fae      	ADD  R26,R30
-000180 1fbf      	ADC  R27,R31
-000181 940e 0260 	CALL __GETW1P
-000183 93ff      	PUSH R31
-000184 93ef      	PUSH R30
-000185 01d9      	MOVW R26,R18
-000186 940e 0260 	CALL __GETW1P
-000188 93fa      	ST   -Y,R31
-000189 93ea      	ST   -Y,R30
-00018a 2fa1      	MOV  R26,R17
-00018b 91ef      	POP  R30
-00018c 91ff      	POP  R31
-00018d 9509      	ICALL
-00018e 91af      	POP  R26
-00018f 91bf      	POP  R27
-000190 70e1      	ANDI R30,LOW(0x1)
-000191 0fee      	LSL  R30
-000192 0fee      	LSL  R30
-000193 2e0e      	MOV  R0,R30
-000194 91ec      	LD   R30,X
-000195 7feb      	ANDI R30,0xFB
-000196 29e0      	OR   R30,R0
-000197 93ec      	ST   X,R30
                  ; 0001 003B             }
                  ; 0001 003C         #else
                  ; 0001 003D             if (Key_ptr(pKey)->Callbacks.onChange) {
+00016e 01d9      	MOVW R26,R18
+00016f 940e 024c 	CALL __GETW1P
+000171 9632      	ADIW R30,2
+000172 01df      	MOVW R26,R30
+000173 940e 024c 	CALL __GETW1P
+000175 9730      	SBIW R30,0
+000176 f411      	BRNE PC+3
+000177 940c 019a 	JMP _0x20009
                  ; 0001 003E                 Key_ptr(pKey)->NotActive = Key_ptr(pKey)->Callbacks.onChange(Key_ptr(pKey), state);
+000179 01d9      	MOVW R26,R18
+00017a 940e 024c 	CALL __GETW1P
+00017c 9634      	ADIW R30,4
+00017d 93ff      	PUSH R31
+00017e 93ef      	PUSH R30
+00017f 940e 024c 	CALL __GETW1P
+000181 9632      	ADIW R30,2
+000182 01df      	MOVW R26,R30
+000183 940e 024c 	CALL __GETW1P
+000185 93ff      	PUSH R31
+000186 93ef      	PUSH R30
+000187 01d9      	MOVW R26,R18
+000188 940e 024c 	CALL __GETW1P
+00018a 93fa      	ST   -Y,R31
+00018b 93ea      	ST   -Y,R30
+00018c 2fa1      	MOV  R26,R17
+00018d 91ef      	POP  R30
+00018e 91ff      	POP  R31
+00018f 9509      	ICALL
+000190 91af      	POP  R26
+000191 91bf      	POP  R27
+000192 70e1      	ANDI R30,LOW(0x1)
+000193 0fee      	LSL  R30
+000194 0fee      	LSL  R30
+000195 2e0e      	MOV  R0,R30
+000196 91ec      	LD   R30,X
+000197 7feb      	ANDI R30,0xFB
+000198 29e0      	OR   R30,R0
+000199 93ec      	ST   X,R30
                  ; 0001 003F             }
                  ; 0001 0040         #endif /* KEY_MULTI_CALLBACK_ENABLE */
                  ; 0001 0041         }
                  _0x20009:
                  ; 0001 0042         else if (Key_State_None == state && Key_ptr(pKey)->NotActive != Key_NotHandled) {
-000198 c016      	RJMP _0x2000A
+00019a c016      	RJMP _0x2000A
                  _0x20006:
-000199 3013      	CPI  R17,3
-00019a f011      	BREQ PC+3
-00019b 940c 01a6 	JMP _0x2000C
-00019d 01d9      	MOVW R26,R18
-00019e 940e 0260 	CALL __GETW1P
-0001a0 85e0      	LDD  R30,Z+8
-0001a1 70e4      	ANDI R30,LOW(0x4)
-0001a2 f411      	BRNE PC+3
-0001a3 940c 01a6 	JMP _0x2000C
-0001a5 c001      	RJMP _0x2000D
+00019b 3013      	CPI  R17,3
+00019c f011      	BREQ PC+3
+00019d 940c 01a8 	JMP _0x2000C
+00019f 01d9      	MOVW R26,R18
+0001a0 940e 024c 	CALL __GETW1P
+0001a2 81e4      	LDD  R30,Z+4
+0001a3 70e4      	ANDI R30,LOW(0x4)
+0001a4 f411      	BRNE PC+3
+0001a5 940c 01a8 	JMP _0x2000C
+0001a7 c001      	RJMP _0x2000D
                  _0x2000C:
-0001a6 c008      	RJMP _0x2000B
+0001a8 c008      	RJMP _0x2000B
                  _0x2000D:
                  ; 0001 0043             Key_ptr(pKey)->NotActive = Key_NotHandled;
-0001a7 01d9      	MOVW R26,R18
-0001a8 940e 0260 	CALL __GETW1P
-0001aa 9638      	ADIW R30,8
-0001ab 01df      	MOVW R26,R30
-0001ac 91ec      	LD   R30,X
-0001ad 7feb      	ANDI R30,0xFB
-0001ae 93ec      	ST   X,R30
+0001a9 01d9      	MOVW R26,R18
+0001aa 940e 024c 	CALL __GETW1P
+0001ac 9634      	ADIW R30,4
+0001ad 01df      	MOVW R26,R30
+0001ae 91ec      	LD   R30,X
+0001af 7feb      	ANDI R30,0xFB
+0001b0 93ec      	ST   X,R30
                  ; 0001 0044         }
                  ; 0001 0045     #if KEY_MAX_NUM == -1
                  ; 0001 0046         // switch to previous key
@@ -1837,17 +1849,17 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  _0x2000B:
                  _0x2000A:
                 +
-0001af 5f2e     +SUBI R18 , LOW ( - 2 )
-0001b0 4f3f     +SBCI R19 , HIGH ( - 2 )
+0001b1 5f2e     +SUBI R18 , LOW ( - 2 )
+0001b2 4f3f     +SBCI R19 , HIGH ( - 2 )
                  	__ADDWRN 18,19,2
                  ; 0001 004A     #endif // KEY_MAX_NUM == -1
                  ; 0001 004B     }
-0001b1 cf74      	RJMP _0x20003
+0001b3 cf80      	RJMP _0x20003
                  _0x20005:
                  ; 0001 004C }
-0001b2 940e 0269 	CALL __LOADLOCR4
-0001b4 9624      	ADIW R28,4
-0001b5 9508      	RET
+0001b4 940e 0255 	CALL __LOADLOCR4
+0001b6 9624      	ADIW R28,4
+0001b7 9508      	RET
                  ; .FEND
                  ;
                  ;/**
@@ -1862,19 +1874,19 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  _Key_setConfig:
                  ; .FSTART _Key_setConfig
                  ; 0001 0056     key->Config = config;
-0001b6 93ba      	ST   -Y,R27
-0001b7 93aa      	ST   -Y,R26
+0001b8 93ba      	ST   -Y,R27
+0001b9 93aa      	ST   -Y,R26
                  ;	*key -> Y+2
                  ;	*config -> Y+0
-0001b8 81e8      	LD   R30,Y
-0001b9 81f9      	LDD  R31,Y+1
-0001ba 81aa      	LDD  R26,Y+2
-0001bb 81bb      	LDD  R27,Y+2+1
-0001bc 93ed      	ST   X+,R30
-0001bd 93fc      	ST   X,R31
+0001ba 81e8      	LD   R30,Y
+0001bb 81f9      	LDD  R31,Y+1
+0001bc 81aa      	LDD  R26,Y+2
+0001bd 81bb      	LDD  R27,Y+2+1
+0001be 93ed      	ST   X+,R30
+0001bf 93fc      	ST   X,R31
                  ; 0001 0057 }
-0001be 9624      	ADIW R28,4
-0001bf 9508      	RET
+0001c0 9624      	ADIW R28,4
+0001c1 9508      	RET
                  ; .FEND
                  ;/**
                  ; * @brief get key pin config
@@ -1900,43 +1912,43 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  ; .FSTART _Key_add
                  ; 0001 0069     // add new key to list
                  ; 0001 006A     key->State = Key_State_None;
-0001c0 93ba      	ST   -Y,R27
-0001c1 93aa      	ST   -Y,R26
+0001c2 93ba      	ST   -Y,R27
+0001c3 93aa      	ST   -Y,R26
                  ;	*key -> Y+2
                  ;	*config -> Y+0
-0001c2 81aa      	LDD  R26,Y+2
-0001c3 81bb      	LDD  R27,Y+2+1
-0001c4 9618      	ADIW R26,8
-0001c5 91ec      	LD   R30,X
-0001c6 60e3      	ORI  R30,LOW(0x3)
-0001c7 93ec      	ST   X,R30
+0001c4 81aa      	LDD  R26,Y+2
+0001c5 81bb      	LDD  R27,Y+2+1
+0001c6 9614      	ADIW R26,4
+0001c7 91ec      	LD   R30,X
+0001c8 60e3      	ORI  R30,LOW(0x3)
+0001c9 93ec      	ST   X,R30
                  ; 0001 006B     key->NotActive = Key_NotHandled;
-0001c8 81aa      	LDD  R26,Y+2
-0001c9 81bb      	LDD  R27,Y+2+1
-0001ca 9618      	ADIW R26,8
-0001cb 91ec      	LD   R30,X
-0001cc 7feb      	ANDI R30,0xFB
-0001cd 93ec      	ST   X,R30
+0001ca 81aa      	LDD  R26,Y+2
+0001cb 81bb      	LDD  R27,Y+2+1
+0001cc 9614      	ADIW R26,4
+0001cd 91ec      	LD   R30,X
+0001ce 7feb      	ANDI R30,0xFB
+0001cf 93ec      	ST   X,R30
                  ; 0001 006C     Key_setConfig(key, config);
-0001ce 81ea      	LDD  R30,Y+2
-0001cf 81fb      	LDD  R31,Y+2+1
-0001d0 93fa      	ST   -Y,R31
-0001d1 93ea      	ST   -Y,R30
-0001d2 81aa      	LDD  R26,Y+2
-0001d3 81bb      	LDD  R27,Y+2+1
-0001d4 940e 01b6 	CALL _Key_setConfig
+0001d0 81ea      	LDD  R30,Y+2
+0001d1 81fb      	LDD  R31,Y+2+1
+0001d2 93fa      	ST   -Y,R31
+0001d3 93ea      	ST   -Y,R30
+0001d4 81aa      	LDD  R26,Y+2
+0001d5 81bb      	LDD  R27,Y+2+1
+0001d6 940e 01b8 	CALL _Key_setConfig
                  ; 0001 006D     // init IOs
                  ; 0001 006E     keyDriver->initPin(config);
-0001d6 91a0 0188 	LDS  R26,_keyDriver_G001
-0001d8 91b0 0189 	LDS  R27,_keyDriver_G001+1
-0001da 940e 0260 	CALL __GETW1P
-0001dc 93ff      	PUSH R31
-0001dd 93ef      	PUSH R30
-0001de 81a8      	LD   R26,Y
-0001df 81b9      	LDD  R27,Y+1
-0001e0 91ef      	POP  R30
-0001e1 91ff      	POP  R31
-0001e2 9509      	ICALL
+0001d8 91a0 017c 	LDS  R26,_keyDriver_G001
+0001da 91b0 017d 	LDS  R27,_keyDriver_G001+1
+0001dc 940e 024c 	CALL __GETW1P
+0001de 93ff      	PUSH R31
+0001df 93ef      	PUSH R30
+0001e0 81a8      	LD   R26,Y
+0001e1 81b9      	LDD  R27,Y+1
+0001e2 91ef      	POP  R30
+0001e3 91ff      	POP  R31
+0001e4 9509      	ICALL
                  ; 0001 006F #if KEY_MAX_NUM == -1
                  ; 0001 0070     // add key to linked list
                  ; 0001 0071     key->Previous = lastKey;
@@ -1948,58 +1960,58 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  ; 0001 0077         uint8_t len = KEY_MAX_NUM;
                  ; 0001 0078         Key** pKey = keys;
                  ; 0001 0079         while (len--) {
-0001e3 9723      	SBIW R28,3
-0001e4 e8ea      	LDI  R30,LOW(_keys_G001)
-0001e5 e0f1      	LDI  R31,HIGH(_keys_G001)
-0001e6 83e8      	ST   Y,R30
-0001e7 83f9      	STD  Y+1,R31
-0001e8 e0e3      	LDI  R30,LOW(3)
-0001e9 83ea      	STD  Y+2,R30
+0001e5 9723      	SBIW R28,3
+0001e6 e7ee      	LDI  R30,LOW(_keys_G001)
+0001e7 e0f1      	LDI  R31,HIGH(_keys_G001)
+0001e8 83e8      	ST   Y,R30
+0001e9 83f9      	STD  Y+1,R31
+0001ea e0e3      	LDI  R30,LOW(3)
+0001eb 83ea      	STD  Y+2,R30
                  ;	*key -> Y+5
                  ;	*config -> Y+3
                  ;	len -> Y+2
                  ;	*pKey -> Y+0
                  _0x2000E:
-0001ea 81ea      	LDD  R30,Y+2
-0001eb 50e1      	SUBI R30,LOW(1)
-0001ec 83ea      	STD  Y+2,R30
-0001ed 5fef      	SUBI R30,-LOW(1)
-0001ee f411      	BRNE PC+3
-0001ef 940c 0207 	JMP _0x20010
+0001ec 81ea      	LDD  R30,Y+2
+0001ed 50e1      	SUBI R30,LOW(1)
+0001ee 83ea      	STD  Y+2,R30
+0001ef 5fef      	SUBI R30,-LOW(1)
+0001f0 f411      	BRNE PC+3
+0001f1 940c 0209 	JMP _0x20010
                  ; 0001 007A             if (KEY_NULL == *pKey) {
-0001f1 81a8      	LD   R26,Y
-0001f2 81b9      	LDD  R27,Y+1
-0001f3 940e 0260 	CALL __GETW1P
-0001f5 9730      	SBIW R30,0
-0001f6 f011      	BREQ PC+3
-0001f7 940c 0201 	JMP _0x20011
+0001f3 81a8      	LD   R26,Y
+0001f4 81b9      	LDD  R27,Y+1
+0001f5 940e 024c 	CALL __GETW1P
+0001f7 9730      	SBIW R30,0
+0001f8 f011      	BREQ PC+3
+0001f9 940c 0203 	JMP _0x20011
                  ; 0001 007B                 *pKey = key;
-0001f9 81ed      	LDD  R30,Y+5
-0001fa 81fe      	LDD  R31,Y+5+1
-0001fb 93ed      	ST   X+,R30
-0001fc 93fc      	ST   X,R31
+0001fb 81ed      	LDD  R30,Y+5
+0001fc 81fe      	LDD  R31,Y+5+1
+0001fd 93ed      	ST   X+,R30
+0001fe 93fc      	ST   X,R31
                  ; 0001 007C                 return 1;
-0001fd e0e1      	LDI  R30,LOW(1)
-0001fe 9623      	ADIW R28,3
-0001ff 9624      	ADIW R28,4
-000200 9508      	RET
+0001ff e0e1      	LDI  R30,LOW(1)
+000200 9623      	ADIW R28,3
+000201 9624      	ADIW R28,4
+000202 9508      	RET
                  ; 0001 007D             }
                  ; 0001 007E             pKey++;
                  _0x20011:
-000201 81e8      	LD   R30,Y
-000202 81f9      	LDD  R31,Y+1
-000203 9632      	ADIW R30,2
-000204 83e8      	ST   Y,R30
-000205 83f9      	STD  Y+1,R31
+000203 81e8      	LD   R30,Y
+000204 81f9      	LDD  R31,Y+1
+000205 9632      	ADIW R30,2
+000206 83e8      	ST   Y,R30
+000207 83f9      	STD  Y+1,R31
                  ; 0001 007F         }
-000206 cfe3      	RJMP _0x2000E
+000208 cfe3      	RJMP _0x2000E
                  _0x20010:
                  ; 0001 0080     }
-000207 9623      	ADIW R28,3
+000209 9623      	ADIW R28,3
                  ; 0001 0081     return 0;
-000208 e0e0      	LDI  R30,LOW(0)
-000209 9624      	ADIW R28,4
-00020a 9508      	RET
+00020a e0e0      	LDI  R30,LOW(0)
+00020b 9624      	ADIW R28,4
+00020c 9508      	RET
                  ; 0001 0082 #endif // KEY_MAX_NUM == -1
                  ; 0001 0083 }
                  ; .FEND
@@ -2048,71 +2060,14 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  ;
                  ;#if KEY_MULTI_CALLBACK
                  ;void Key_onHold(Key* key, Key_Callback cb) {
-                 ; 0001 00AD void Key_onHold(Key* key, Key_Callback cb) {
-                 _Key_onHold:
-                 ; .FSTART _Key_onHold
-                 ; 0001 00AE     key->Callbacks.onHold = cb;
-00020b 93ba      	ST   -Y,R27
-00020c 93aa      	ST   -Y,R26
-                 ;	*key -> Y+2
-                 ;	*cb -> Y+0
-00020d 81e8      	LD   R30,Y
-00020e 81f9      	LDD  R31,Y+1
-                +
-00020f 81aa     +LDD R26 , Y + 2
-000210 81bb     +LDD R27 , Y + 2 + 1
-000211 9612     +ADIW R26 , 2
-000212 93ed     +ST X + , R30
-000213 93fc     +ST X , R31
-                 	__PUTW1SNS 2,2
-                 ; 0001 00AF }
-000214 9624      	ADIW R28,4
-000215 9508      	RET
-                 ; .FEND
+                 ;    key->Callbacks.onHold = cb;
+                 ;}
                  ;void Key_onReleased(Key* key, Key_Callback cb) {
-                 ; 0001 00B0 void Key_onReleased(Key* key, Key_Callback cb) {
-                 _Key_onReleased:
-                 ; .FSTART _Key_onReleased
-                 ; 0001 00B1     key->Callbacks.onReleased = cb;
-000216 93ba      	ST   -Y,R27
-000217 93aa      	ST   -Y,R26
-                 ;	*key -> Y+2
-                 ;	*cb -> Y+0
-000218 81e8      	LD   R30,Y
-000219 81f9      	LDD  R31,Y+1
-                +
-00021a 81aa     +LDD R26 , Y + 2
-00021b 81bb     +LDD R27 , Y + 2 + 1
-00021c 9614     +ADIW R26 , 4
-00021d 93ed     +ST X + , R30
-00021e 93fc     +ST X , R31
-                 	__PUTW1SNS 2,4
-                 ; 0001 00B2 }
-00021f 9624      	ADIW R28,4
-000220 9508      	RET
-                 ; .FEND
+                 ;    key->Callbacks.onReleased = cb;
+                 ;}
                  ;void Key_onPressed(Key* key, Key_Callback cb) {
-                 ; 0001 00B3 void Key_onPressed(Key* key, Key_Callback cb) {
-                 _Key_onPressed:
-                 ; .FSTART _Key_onPressed
-                 ; 0001 00B4     key->Callbacks.onPressed = cb;
-000221 93ba      	ST   -Y,R27
-000222 93aa      	ST   -Y,R26
-                 ;	*key -> Y+2
-                 ;	*cb -> Y+0
-000223 81e8      	LD   R30,Y
-000224 81f9      	LDD  R31,Y+1
-                +
-000225 81aa     +LDD R26 , Y + 2
-000226 81bb     +LDD R27 , Y + 2 + 1
-000227 9616     +ADIW R26 , 6
-000228 93ed     +ST X + , R30
-000229 93fc     +ST X , R31
-                 	__PUTW1SNS 2,6
-                 ; 0001 00B5 }
-00022a 9624      	ADIW R28,4
-00022b 9508      	RET
-                 ; .FEND
+                 ;    key->Callbacks.onPressed = cb;
+                 ;}
                  ;#if KEY_NONE_CALLBACK
                  ;void Key_onNone(Key* key, Key_Callback cb) {
                  ;    key->Callbacks.onNone = cb;
@@ -2120,8 +2075,27 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  ;#endif // KEY_NONE_CALLBACK
                  ;#else
                  ;void Key_onChange(Key* key, Key_Callback cb) {
-                 ;    key->Callbacks.onChange = cb;
-                 ;}
+                 ; 0001 00BC void Key_onChange(Key* key, Key_Callback cb) {
+                 _Key_onChange:
+                 ; .FSTART _Key_onChange
+                 ; 0001 00BD     key->Callbacks.onChange = cb;
+00020d 93ba      	ST   -Y,R27
+00020e 93aa      	ST   -Y,R26
+                 ;	*key -> Y+2
+                 ;	*cb -> Y+0
+00020f 81e8      	LD   R30,Y
+000210 81f9      	LDD  R31,Y+1
+                +
+000211 81aa     +LDD R26 , Y + 2
+000212 81bb     +LDD R27 , Y + 2 + 1
+000213 9612     +ADIW R26 , 2
+000214 93ed     +ST X + , R30
+000215 93fc     +ST X , R31
+                 	__PUTW1SNS 2,2
+                 ; 0001 00BE }
+000216 9624      	ADIW R28,4
+000217 9508      	RET
+                 ; .FEND
                  ;#endif // KEY_MULTI_CALLBACK
                  ;
                  ;#if KEY_ACTIVE_STATE
@@ -2160,59 +2134,59 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  _Key_initPin:
                  ; .FSTART _Key_initPin
                  ; 0002 000A     config->IO->Direction.Value &= ~config->Pin;
-00022c 93ba      	ST   -Y,R27
-00022d 93aa      	ST   -Y,R26
+000218 93ba      	ST   -Y,R27
+000219 93aa      	ST   -Y,R26
                  ;	*config -> Y+0
-00022e 81a8      	LD   R26,Y
-00022f 81b9      	LDD  R27,Y+1
-000230 940e 0260 	CALL __GETW1P
-000232 9631      	ADIW R30,1
-000233 010f      	MOVW R0,R30
-000234 81a0      	LD   R26,Z
-000235 81e8      	LD   R30,Y
-000236 81f9      	LDD  R31,Y+1
-000237 81e2      	LDD  R30,Z+2
-000238 95e0      	COM  R30
-000239 23ea      	AND  R30,R26
-00023a 01d0      	MOVW R26,R0
-00023b 93ec      	ST   X,R30
+00021a 81a8      	LD   R26,Y
+00021b 81b9      	LDD  R27,Y+1
+00021c 940e 024c 	CALL __GETW1P
+00021e 9631      	ADIW R30,1
+00021f 010f      	MOVW R0,R30
+000220 81a0      	LD   R26,Z
+000221 81e8      	LD   R30,Y
+000222 81f9      	LDD  R31,Y+1
+000223 81e2      	LDD  R30,Z+2
+000224 95e0      	COM  R30
+000225 23ea      	AND  R30,R26
+000226 01d0      	MOVW R26,R0
+000227 93ec      	ST   X,R30
                  ; 0002 000B     config->IO->OutputData.Value |= config->Pin;
-00023c 81a8      	LD   R26,Y
-00023d 81b9      	LDD  R27,Y+1
-00023e 940e 0260 	CALL __GETW1P
-000240 9632      	ADIW R30,2
-000241 010f      	MOVW R0,R30
-000242 81a0      	LD   R26,Z
-000243 81e8      	LD   R30,Y
-000244 81f9      	LDD  R31,Y+1
-000245 81e2      	LDD  R30,Z+2
-000246 2bea      	OR   R30,R26
-000247 01d0      	MOVW R26,R0
-000248 93ec      	ST   X,R30
+000228 81a8      	LD   R26,Y
+000229 81b9      	LDD  R27,Y+1
+00022a 940e 024c 	CALL __GETW1P
+00022c 9632      	ADIW R30,2
+00022d 010f      	MOVW R0,R30
+00022e 81a0      	LD   R26,Z
+00022f 81e8      	LD   R30,Y
+000230 81f9      	LDD  R31,Y+1
+000231 81e2      	LDD  R30,Z+2
+000232 2bea      	OR   R30,R26
+000233 01d0      	MOVW R26,R0
+000234 93ec      	ST   X,R30
                  ; 0002 000C }
-000249 9622      	ADIW R28,2
-00024a 9508      	RET
+000235 9622      	ADIW R28,2
+000236 9508      	RET
                  ; .FEND
                  ;uint8_t Key_readPin(const Key_PinConfig* config) {
                  ; 0002 000D uint8_t Key_readPin(const Key_PinConfig* config) {
                  _Key_readPin:
                  ; .FSTART _Key_readPin
                  ; 0002 000E     return (config->IO->InputData.Value & config->Pin) != 0;
-00024b 93ba      	ST   -Y,R27
-00024c 93aa      	ST   -Y,R26
+000237 93ba      	ST   -Y,R27
+000238 93aa      	ST   -Y,R26
                  ;	*config -> Y+0
-00024d 81a8      	LD   R26,Y
-00024e 81b9      	LDD  R27,Y+1
-00024f 940e 0260 	CALL __GETW1P
-000251 81a0      	LD   R26,Z
-000252 81e8      	LD   R30,Y
-000253 81f9      	LDD  R31,Y+1
-000254 81e2      	LDD  R30,Z+2
-000255 23ea      	AND  R30,R26
-000256 e0a0      	LDI  R26,LOW(0)
-000257 940e 025b 	CALL __NEB12
-000259 9622      	ADIW R28,2
-00025a 9508      	RET
+000239 81a8      	LD   R26,Y
+00023a 81b9      	LDD  R27,Y+1
+00023b 940e 024c 	CALL __GETW1P
+00023d 81a0      	LD   R26,Z
+00023e 81e8      	LD   R30,Y
+00023f 81f9      	LDD  R31,Y+1
+000240 81e2      	LDD  R30,Z+2
+000241 23ea      	AND  R30,R26
+000242 e0a0      	LDI  R26,LOW(0)
+000243 940e 0247 	CALL __NEB12
+000245 9622      	ADIW R28,2
+000246 9508      	RET
                  ; 0002 000F }
                  ; .FEND
                  ;#if KEY_USE_DEINIT
@@ -2236,50 +2210,50 @@ D:\WORKS\MyProjects\Libs\Key-Examples\Key-AVR-Example\Debug\List\key.asm(1123): 
                  _keyConfig3:
 00016a           	.BYTE 0x3
                  _key1_G000:
-00016d           	.BYTE 0x9
+00016d           	.BYTE 0x5
                  _key2_G000:
-000176           	.BYTE 0x9
+000172           	.BYTE 0x5
                  _key3_G000:
-00017f           	.BYTE 0x9
+000177           	.BYTE 0x5
                  _keyDriver_G001:
-000188           	.BYTE 0x2
+00017c           	.BYTE 0x2
                  _keys_G001:
-00018a           	.BYTE 0x6
+00017e           	.BYTE 0x6
                  
                  	.CSEG
                  
                  	.CSEG
                  __NEB12:
-00025b 17ea      	CP   R30,R26
-00025c e0e1      	LDI  R30,1
-00025d f409      	BRNE __NEB12T
-00025e 27ee      	CLR  R30
+000247 17ea      	CP   R30,R26
+000248 e0e1      	LDI  R30,1
+000249 f409      	BRNE __NEB12T
+00024a 27ee      	CLR  R30
                  __NEB12T:
-00025f 9508      	RET
+00024b 9508      	RET
                  
                  __GETW1P:
-000260 91ed      	LD   R30,X+
-000261 91fc      	LD   R31,X
-000262 9711      	SBIW R26,1
-000263 9508      	RET
+00024c 91ed      	LD   R30,X+
+00024d 91fc      	LD   R31,X
+00024e 9711      	SBIW R26,1
+00024f 9508      	RET
                  
                  __SAVELOCR4:
-000264 933a      	ST   -Y,R19
+000250 933a      	ST   -Y,R19
                  __SAVELOCR3:
-000265 932a      	ST   -Y,R18
+000251 932a      	ST   -Y,R18
                  __SAVELOCR2:
-000266 931a      	ST   -Y,R17
-000267 930a      	ST   -Y,R16
-000268 9508      	RET
+000252 931a      	ST   -Y,R17
+000253 930a      	ST   -Y,R16
+000254 9508      	RET
                  
                  __LOADLOCR4:
-000269 813b      	LDD  R19,Y+3
+000255 813b      	LDD  R19,Y+3
                  __LOADLOCR3:
-00026a 812a      	LDD  R18,Y+2
+000256 812a      	LDD  R18,Y+2
                  __LOADLOCR2:
-00026b 8119      	LDD  R17,Y+1
-00026c 8108      	LD   R16,Y
-00026d 9508      	RET
+000257 8119      	LDD  R17,Y+1
+000258 8108      	LD   R16,Y
+000259 9508      	RET
                  
                  ;END OF CODE MARKER
                  __END_OF_CODE:
@@ -2302,39 +2276,39 @@ counted separately from r26..r31 here.
 ATmega16A register use summary:
 r0 :  16 r1 :   4 r2 :   0 r3 :   0 r4 :   0 r5 :   0 r6 :   0 r7 :   0 
 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 r13:   0 r14:   0 r15:   2 
-r16:   5 r17:  10 r18:  12 r19:   4 r20:   0 r21:   0 r22:   4 r23:   2 
-r24:   9 r25:   4 r26:  78 r27:  38 r28:  20 r29:   1 r30: 176 r31:  58 
-x  :  27 y  : 129 z  :  18 
+r16:   5 r17:   8 r18:  12 r19:   4 r20:   0 r21:   0 r22:   4 r23:   2 
+r24:   9 r25:   4 r26:  72 r27:  29 r28:  19 r29:   1 r30: 169 r31:  48 
+x  :  23 y  : 111 z  :  18 
 Registers used: 20 out of 35 (57.1%)
 
 ATmega16A instruction use summary:
-.lds  :   0 .lds.l:   0 .sts  :   0 .sts.l:   0 adc   :   2 add   :   2 
-adiw  :  31 and   :   2 andi  :  10 asr   :   0 bclr  :   0 bld   :   0 
-brbc  :   0 brbs  :   0 brcc  :   0 brcs  :   0 break :   0 breq  :   4 
+.lds  :   0 .lds.l:   0 .sts  :   0 .sts.l:   0 adc   :   0 add   :   0 
+adiw  :  28 and   :   2 andi  :  10 asr   :   0 bclr  :   0 bld   :   0 
+brbc  :   0 brbs  :   0 brcc  :   0 brcs  :   0 break :   0 breq  :  10 
 brge  :   0 brhc  :   0 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 
 brlt  :   0 brmi  :   0 brne  :   9 brpl  :   0 brsh  :   0 brtc  :   0 
-brts  :   0 brvc  :   0 brvs  :   0 bset  :   0 bst   :   0 call  :  33 
+brts  :   0 brvc  :   0 brvs  :   0 bset  :   0 bst   :   0 call  :  30 
 cbi   :   7 cbr   :   0 clc   :   0 clh   :   0 cli   :   1 cln   :   0 
 clr   :   3 cls   :   0 clt   :   0 clv   :   0 clz   :   0 com   :   1 
-cp    :   1 cpc   :   0 cpi   :   3 cpse  :   0 dec   :   1 des   :   0 
+cp    :   1 cpc   :   4 cpi   :   8 cpse  :   0 dec   :   1 des   :   0 
 eor   :   0 fmul  :   0 fmuls :   0 fmulsu:   0 icall :   3 ijmp  :   0 
-in    :   1 inc   :   0 jmp   :  30 ld    :  37 ldd   :  44 ldi   :  76 
-lds   :   4 lpm   :   7 lsl   :   5 lsr   :   0 mov   :   9 movw  :  22 
+in    :   1 inc   :   0 jmp   :  36 ld    :  38 ldd   :  38 ldi   :  68 
+lds   :   4 lpm   :   7 lsl   :   3 lsr   :   0 mov   :   7 movw  :  22 
 mul   :   0 muls  :   0 mulsu :   0 neg   :   0 nop   :   0 or    :   4 
-ori   :   1 out   :  19 pop   :   7 push  :   7 rcall :   0 ret   :  20 
-reti  :   1 rjmp  :  14 rol   :   2 ror   :   0 sbc   :   0 sbci  :   1 
-sbi   :   4 sbic  :   0 sbis  :   2 sbiw  :   7 sbr   :   0 sbrc  :   0 
+ori   :   1 out   :  19 pop   :   7 push  :   7 rcall :   0 ret   :  19 
+reti  :   1 rjmp  :  16 rol   :   0 ror   :   0 sbc   :   0 sbci  :   1 
+sbi   :   4 sbic  :   0 sbis  :   2 sbiw  :   8 sbr   :   0 sbrc  :   0 
 sbrs  :   0 sec   :   0 seh   :   0 sei   :   1 sen   :   0 ser   :   0 
 ses   :   0 set   :   0 sev   :   0 sez   :   0 sleep :   0 spm   :   0 
-st    :  82 std   :   4 sts   :   2 sub   :   0 subi  :   4 swap  :   0 
+st    :  65 std   :   4 sts   :   2 sub   :   0 subi  :   4 swap  :   0 
 tst   :   0 wdr   :   0 
-Instructions used: 44 out of 116 (37.9%)
+Instructions used: 42 out of 116 (36.2%)
 
 ATmega16A memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0004dc   1198     46   1244   16384   7.6%
-[.dseg] 0x000060 0x000190      0     48     48    1024   4.7%
+[.cseg] 0x000000 0x0004b4   1158     46   1204   16384   7.3%
+[.dseg] 0x000060 0x000184      0     36     36    1024   3.5%
 [.eseg] 0x000000 0x000000      0      0      0     512   0.0%
 
 Assembly complete, 0 errors, 3 warnings
