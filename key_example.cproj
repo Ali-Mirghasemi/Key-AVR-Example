@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>6.1</ProjectVersion>
     <ToolchainName>com.HPInfoTech.CodeVisionAVR.C</ToolchainName>
-    <ProjectGuid>{468C71E2-423D-497C-A76A-A46C3F34E8A0}</ProjectGuid>
+    <ProjectGuid>{26D0E323-423D-497C-A76A-A46C3F34E8A0}</ProjectGuid>
     <avrdevice>ATmega16A</avrdevice>
     <avrdeviceseries>none</avrdeviceseries>
     <OutputType>Executable</OutputType>
@@ -12,9 +12,9 @@
     <OutputFileName>$(MSBuildProjectName)</OutputFileName>
     <OutputFileExtension>.cof</OutputFileExtension>
     <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
-    <AssemblyName>key</AssemblyName>
-    <Name>key</Name>
-    <RootNamespace>key</RootNamespace>
+    <AssemblyName>key_example</AssemblyName>
+    <Name>key_example</Name>
+    <RootNamespace>key_example</RootNamespace>
     <ToolchainFlavour>Native</ToolchainFlavour>
     <KeepTimersRunning>true</KeepTimersRunning>
     <OverrideVtor>false</OverrideVtor>
@@ -24,14 +24,14 @@
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
       <CV>
-        <CVProjectPath>"key.prj"</CVProjectPath>
+        <CVProjectPath>"key_example.prj"</CVProjectPath>
       </CV>
     </ToolchainSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <ToolchainSettings>
       <CV>
-        <CVProjectPath>"key.prj"</CVProjectPath>
+        <CVProjectPath>"key_example.prj"</CVProjectPath>
       </CV>
     </ToolchainSettings>
   </PropertyGroup>

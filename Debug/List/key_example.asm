@@ -1344,7 +1344,7 @@ _main:
 ; 0000 0054     Key_init(&keyDriver);
 	LDI  R26,LOW(_keyDriver_G000)
 	LDI  R27,HIGH(_keyDriver_G000)
-	CALL _Key_init
+	RCALL _Key_init
 ; 0000 0055     Key_add(&key1, &keyConfig1);
 	LDI  R30,LOW(_key1_G000)
 	LDI  R31,HIGH(_key1_G000)
@@ -1352,7 +1352,7 @@ _main:
 	ST   -Y,R30
 	LDI  R26,LOW(_keyConfig1)
 	LDI  R27,HIGH(_keyConfig1)
-	CALL _Key_add
+	RCALL _Key_add
 ; 0000 0056     Key_add(&key2, &keyConfig2);
 	LDI  R30,LOW(_key2_G000)
 	LDI  R31,HIGH(_key2_G000)
@@ -1360,7 +1360,7 @@ _main:
 	ST   -Y,R30
 	LDI  R26,LOW(_keyConfig2)
 	LDI  R27,HIGH(_keyConfig2)
-	CALL _Key_add
+	RCALL _Key_add
 ; 0000 0057     Key_add(&key3, &keyConfig3);
 	LDI  R30,LOW(_key3_G000)
 	LDI  R31,HIGH(_key3_G000)
@@ -1368,7 +1368,7 @@ _main:
 	ST   -Y,R30
 	LDI  R26,LOW(_keyConfig3)
 	LDI  R27,HIGH(_keyConfig3)
-	CALL _Key_add
+	RCALL _Key_add
 ; 0000 0058 #if KEY_MULTI_CALLBACK
 ; 0000 0059     Key_onPressed(&key1, Key1_onPressed);
 ; 0000 005A 
@@ -1386,7 +1386,7 @@ _main:
 	ST   -Y,R30
 	LDI  R26,LOW(_Key1_onChange)
 	LDI  R27,HIGH(_Key1_onChange)
-	CALL _Key_onChange
+	RCALL _Key_onChange
 ; 0000 0063     Key_onChange(&key2, Key2_onChange);
 	LDI  R30,LOW(_key2_G000)
 	LDI  R31,HIGH(_key2_G000)
@@ -1394,7 +1394,7 @@ _main:
 	ST   -Y,R30
 	LDI  R26,LOW(_Key2_onChange)
 	LDI  R27,HIGH(_Key2_onChange)
-	CALL _Key_onChange
+	RCALL _Key_onChange
 ; 0000 0064     Key_onChange(&key3, Key3_onChange);
 	LDI  R30,LOW(_key3_G000)
 	LDI  R31,HIGH(_key3_G000)
@@ -1402,7 +1402,7 @@ _main:
 	ST   -Y,R30
 	LDI  R26,LOW(_Key3_onChange)
 	LDI  R27,HIGH(_Key3_onChange)
-	CALL _Key_onChange
+	RCALL _Key_onChange
 ; 0000 0065 #endif
 ; 0000 0066 
 ; 0000 0067     // Global enable interrupts
@@ -1416,7 +1416,6 @@ _0xD:
 ; 0000 006D 
 ; 0000 006E     }
 	RJMP _0xD
-_0xF:
 ; 0000 006F }
 _0x10:
 	RJMP _0x10
@@ -1440,7 +1439,7 @@ _timer1_compa_isr:
 	IN   R30,SREG
 	ST   -Y,R30
 ; 0000 0073     Key_irq();
-	CALL _Key_irq
+	RCALL _Key_irq
 ; 0000 0074 }
 	LD   R30,Y+
 	OUT  SREG,R30
@@ -1497,8 +1496,7 @@ _Key1_onChange:
 ;	state -> Y+0
 	LD   R30,Y
 	CPI  R30,LOW(0x2)
-	BREQ PC+3
-	JMP _0x11
+	BRNE _0x11
 ; 0000 0095         LED0 = !LED0;
 	SBIS 0x1B,0
 	RJMP _0x12
@@ -1509,14 +1507,11 @@ _0x12:
 _0x13:
 ; 0000 0096         return Key_Handled;
 	LDI  R30,LOW(1)
-	ADIW R28,3
-	RET
+	RJMP _0x2000003
 ; 0000 0097     }
 ; 0000 0098     return Key_NotHandled;
 _0x11:
-	LDI  R30,LOW(0)
-	ADIW R28,3
-	RET
+	RJMP _0x2000004
 ; 0000 0099 }
 ; .FEND
 ;Key_HandleStatus Key2_onChange(Key* key, Key_State state) {
@@ -1533,38 +1528,28 @@ _Key2_onChange:
 	CPI  R30,LOW(0x2)
 	LDI  R26,HIGH(0x2)
 	CPC  R31,R26
-	BREQ PC+3
-	JMP _0x17
+	BRNE _0x17
 ; 0000 009D             LED1 = 1;
 	SBI  0x1B,1
 ; 0000 009E             return Key_NotHandled;
-	LDI  R30,LOW(0)
-	ADIW R28,3
-	RET
+	RJMP _0x2000004
 ; 0000 009F         case Key_State_Released:
 _0x17:
 	CPI  R30,LOW(0x1)
 	LDI  R26,HIGH(0x1)
 	CPC  R31,R26
-	BREQ PC+3
-	JMP _0x1D
+	BRNE _0x1D
 ; 0000 00A0             LED1 = 0;
 	CBI  0x1B,1
 ; 0000 00A1             return Key_Handled;
 	LDI  R30,LOW(1)
-	ADIW R28,3
-	RET
+	RJMP _0x2000003
 ; 0000 00A2         default:
 _0x1D:
 ; 0000 00A3             return Key_NotHandled;
-	LDI  R30,LOW(0)
-	ADIW R28,3
-	RET
+	RJMP _0x2000004
 ; 0000 00A4     }
-_0x16:
 ; 0000 00A5 }
-	ADIW R28,3
-	RET
 ; .FEND
 ;Key_HandleStatus Key3_onChange(Key* key, Key_State state) {
 ; 0000 00A6 Key_HandleStatus Key3_onChange(Key* key, Key_State state) {
@@ -1580,19 +1565,14 @@ _Key3_onChange:
 	CPI  R30,LOW(0x2)
 	LDI  R26,HIGH(0x2)
 	CPC  R31,R26
-	BREQ PC+3
-	JMP _0x21
+	BREQ _0x2A
 ; 0000 00A9             LED2 = 1;
-	SBI  0x1B,2
 ; 0000 00AA             break;
-	RJMP _0x20
 ; 0000 00AB         case Key_State_Released:
-_0x21:
 	CPI  R30,LOW(0x1)
 	LDI  R26,HIGH(0x1)
 	CPC  R31,R26
-	BREQ PC+3
-	JMP _0x24
+	BRNE _0x24
 ; 0000 00AC             LED2 = 0;
 	CBI  0x1B,2
 ; 0000 00AD             break;
@@ -1600,21 +1580,23 @@ _0x21:
 ; 0000 00AE         case Key_State_Hold:
 _0x24:
 	SBIW R30,0
-	BREQ PC+3
-	JMP _0x20
+	BRNE _0x20
 ; 0000 00AF             LED2 = !LED2;
 	SBIS 0x1B,2
 	RJMP _0x28
 	CBI  0x1B,2
 	RJMP _0x29
 _0x28:
+_0x2A:
 	SBI  0x1B,2
 _0x29:
 ; 0000 00B0             break;
 ; 0000 00B1     }
 _0x20:
 ; 0000 00B2     return Key_NotHandled;
+_0x2000004:
 	LDI  R30,LOW(0)
+_0x2000003:
 	ADIW R28,3
 	RET
 ; 0000 00B3 }
@@ -1660,8 +1642,7 @@ _Key_init:
 	STS  _keyDriver_G001,R30
 	STS  _keyDriver_G001+1,R31
 ; 0001 001B }
-	ADIW R28,2
-	RET
+	RJMP _0x2000001
 ; .FEND
 ;/**
 ; * @brief user must place it in timer with 20ms ~ 50ms
@@ -1689,8 +1670,8 @@ _0x20003:
 	MOV  R30,R16
 	SUBI R16,1
 	CPI  R30,0
-	BRNE PC+3
-	JMP _0x20005
+	BRNE PC+2
+	RJMP _0x20005
 ; 0001 0029 #endif
 ; 0001 002A         // update current state
 ; 0001 002B         state = Key_ptr(pKey)->State;
@@ -1741,12 +1722,9 @@ _0x20003:
 	CALL __GETW1P
 	LDD  R30,Z+4
 	ANDI R30,LOW(0x4)
-	BREQ PC+3
-	JMP _0x20007
+	BRNE _0x20007
 	CPI  R17,3
-	BRNE PC+3
-	JMP _0x20007
-	RJMP _0x20008
+	BRNE _0x20008
 _0x20007:
 	RJMP _0x20006
 _0x20008:
@@ -1762,24 +1740,23 @@ _0x20008:
 	MOVW R26,R30
 	CALL __GETW1P
 	SBIW R30,0
-	BRNE PC+3
-	JMP _0x20009
+	BREQ _0x20009
 ; 0001 003E                 Key_ptr(pKey)->NotActive = Key_ptr(pKey)->Callbacks.onChange(Key_ptr(pKey), state);
 	MOVW R26,R18
 	CALL __GETW1P
+	MOVW R0,R30
+	MOVW R26,R30
 	ADIW R30,4
 	PUSH R31
 	PUSH R30
-	CALL __GETW1P
+	MOVW R30,R26
 	ADIW R30,2
 	MOVW R26,R30
 	CALL __GETW1P
 	PUSH R31
 	PUSH R30
-	MOVW R26,R18
-	CALL __GETW1P
-	ST   -Y,R31
-	ST   -Y,R30
+	ST   -Y,R1
+	ST   -Y,R0
 	MOV  R26,R17
 	POP  R30
 	POP  R31
@@ -1802,15 +1779,12 @@ _0x20009:
 	RJMP _0x2000A
 _0x20006:
 	CPI  R17,3
-	BREQ PC+3
-	JMP _0x2000C
+	BRNE _0x2000C
 	MOVW R26,R18
 	CALL __GETW1P
 	LDD  R30,Z+4
 	ANDI R30,LOW(0x4)
-	BRNE PC+3
-	JMP _0x2000C
-	RJMP _0x2000D
+	BRNE _0x2000D
 _0x2000C:
 	RJMP _0x2000B
 _0x2000D:
@@ -1837,8 +1811,7 @@ _0x2000A:
 _0x20005:
 ; 0001 004C }
 	CALL __LOADLOCR4
-	ADIW R28,4
-	RET
+	RJMP _0x2000002
 ; .FEND
 ;
 ;/**
@@ -1864,8 +1837,7 @@ _Key_setConfig:
 	ST   X+,R30
 	ST   X,R31
 ; 0001 0057 }
-	ADIW R28,4
-	RET
+	RJMP _0x2000002
 ; .FEND
 ;/**
 ; * @brief get key pin config
@@ -1915,7 +1887,7 @@ _Key_add:
 	ST   -Y,R30
 	LDD  R26,Y+2
 	LDD  R27,Y+2+1
-	CALL _Key_setConfig
+	RCALL _Key_setConfig
 ; 0001 006D     // init IOs
 ; 0001 006E     keyDriver->initPin(config);
 	LDS  R26,_keyDriver_G001
@@ -1955,15 +1927,13 @@ _0x2000E:
 	SUBI R30,LOW(1)
 	STD  Y+2,R30
 	SUBI R30,-LOW(1)
-	BRNE PC+3
-	JMP _0x20010
+	BREQ _0x20010
 ; 0001 007A             if (KEY_NULL == *pKey) {
 	LD   R26,Y
 	LDD  R27,Y+1
 	CALL __GETW1P
 	SBIW R30,0
-	BREQ PC+3
-	JMP _0x20011
+	BRNE _0x20011
 ; 0001 007B                 *pKey = key;
 	LDD  R30,Y+5
 	LDD  R31,Y+5+1
@@ -1972,8 +1942,7 @@ _0x2000E:
 ; 0001 007C                 return 1;
 	LDI  R30,LOW(1)
 	ADIW R28,3
-	ADIW R28,4
-	RET
+	RJMP _0x2000002
 ; 0001 007D             }
 ; 0001 007E             pKey++;
 _0x20011:
@@ -1989,8 +1958,7 @@ _0x20010:
 	ADIW R28,3
 ; 0001 0081     return 0;
 	LDI  R30,LOW(0)
-	ADIW R28,4
-	RET
+	RJMP _0x2000002
 ; 0001 0082 #endif // KEY_MAX_NUM == -1
 ; 0001 0083 }
 ; .FEND
@@ -2066,6 +2034,7 @@ _Key_onChange:
 	LDD  R31,Y+1
 	__PUTW1SNS 2,2
 ; 0001 00BE }
+_0x2000002:
 	ADIW R28,4
 	RET
 ; .FEND
@@ -2146,8 +2115,7 @@ _Key_initPin:
 	MOVW R26,R0
 	ST   X,R30
 ; 0002 000C }
-	ADIW R28,2
-	RET
+	RJMP _0x2000001
 ; .FEND
 ;uint8_t Key_readPin(const Key_PinConfig* config) {
 ; 0002 000D uint8_t Key_readPin(const Key_PinConfig* config) {
@@ -2167,6 +2135,7 @@ _Key_readPin:
 	AND  R30,R26
 	LDI  R26,LOW(0)
 	CALL __NEB12
+_0x2000001:
 	ADIW R28,2
 	RET
 ; 0002 000F }

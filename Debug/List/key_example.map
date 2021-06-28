@@ -22,14 +22,13 @@ Variable                                                                        
 FLASH Allocation [words]
 Function                                                                          Address   Size
 ------------------------------------------------------------------------------------------------
-main                                                                              0x0006E     78
-timer1_compa_isr                                                                  0x000BC     29
-Key1_onChange                                                                     0x000D9     17
-Key2_onChange                                                                     0x000EA     28
-Key3_onChange                                                                     0x00106     31
-Key_init                                                                          0x00125     10
-Key_irq                                                                           0x0012F    137
-Key_setConfig                                                                     0x001B8     10
-Key_onChange                                                                      0x0020D     11
-Key_initPin                                                                       0x00218     31
-Key_readPin                                                                       0x00237     16
+main                                                                              0x0006E     71
+timer1_compa_isr                                                                  0x000B5     28
+Key1_onChange                                                                     0x000D1     12
+Key3_onChange                                                                     0x000EE     23
+Key_init                                                                          0x00105      9
+Key_irq                                                                           0x0010E    121
+Key_setConfig                                                                     0x00187      9
+Key_onChange                                                                      0x001D4     11
+Key_initPin                                                                       0x001DF     30
+Key_readPin                                                                       0x001FD     16
