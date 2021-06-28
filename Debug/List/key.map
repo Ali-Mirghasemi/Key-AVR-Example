@@ -1,0 +1,40 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+keyDriver                                                                         0x0160       4
+keyConfig1                                                                        0x0164       3
+keyConfig2                                                                        0x0167       3
+keyConfig3                                                                        0x016A       3
+key1                                                                              0x016D       9
+key2                                                                              0x0176       9
+key3                                                                              0x017F       9
+keyDriver                                                                         0x0188       2
+keys                                                                              0x018A       6
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+main                                                                              0x0006E    102
+timer1_compa_isr                                                                  0x000D4     29
+Key1_onPressed                                                                    0x000F1      9
+Key2_onPressed                                                                    0x000FA      5
+Key2_onReleased                                                                   0x000FF      5
+Key3_onPressed                                                                    0x00104      5
+Key3_onReleased                                                                   0x00109      5
+Key3_onHold                                                                       0x0010E      9
+Key_init                                                                          0x00117     10
+Key_irq                                                                           0x00121    149
+Key_setConfig                                                                     0x001B6     10
+Key_onHold                                                                        0x0020B     11
+Key_onReleased                                                                    0x00216     11
+Key_onPressed                                                                     0x00221     11
+Key_initPin                                                                       0x0022C     31
+Key_readPin                                                                       0x0024B     16
