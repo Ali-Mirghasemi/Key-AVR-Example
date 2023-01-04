@@ -23,8 +23,8 @@ void Key_deInitPin(const Key_PinConfig* config);
 #endif
 
 static const Key_Driver keyDriver = {
-    Key_initPin,
     Key_readPin,
+    Key_initPin,
 #if KEY_USE_DEINIT
     Key_deInitPin,
 #endif
